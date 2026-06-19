@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+# Build output is regenerated each run and published to Pages; not committed.
+site/
+# The CSV snapshot history IS committed (it's the persistent store) — do not ignore data/.

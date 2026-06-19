@@ -1,0 +1,11 @@
+# Operator-curated ticker / name -> ISIN overrides, consulted before the
+# dynamic crosswalk. Keys are normalised on load — write tickers/names naturally.
+# A ticker key may be "TICKER" or "TICKER:COUNTRY" (e.g. "SFR:AU").
+#
+# by_ticker:
+#   "BVR AU": "AU0000242318"
+# by_name:
+#   "Bellavista Resources": "AU0000242318"
+
+by_ticker: {}
+by_name: {}

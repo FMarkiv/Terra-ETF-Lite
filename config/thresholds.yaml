@@ -1,0 +1,19 @@
+# Controls what surfaces as a "material" change in the dashboard.
+# Additions/removals always surface; weight/share changes are filtered here.
+
+defaults:
+  min_weight_delta_bps: 25        # 0.25% absolute weight change
+  min_share_pct_change: 5.0       # 5% change in shares held
+  min_value_delta_usd: 1000000    # $1M absolute value change
+
+overrides_by_vertical:
+  gold:
+    min_weight_delta_bps: 30      # GDX has 50+ holdings, wider band
+  copper:
+    min_weight_delta_bps: 20      # COPX has ~30 holdings, tighter
+
+cross_etf:
+  min_converging_etfs: 2          # At least 2 ETFs moving same direction
+
+additions_removals:
+  always_surface: true

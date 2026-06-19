@@ -1,0 +1,65 @@
+name: daily-etf-flow
+
+# Runs Tue–Sat 07:00 Australia/Sydney (= Mon–Fri 21:00 UTC). By that hour every
+# US issuer has posted the previous US close overnight (AEST evening) and the ASX
+# files are in — so each run captures the freshest holdings available. US trades
+# Mon–Fri, so Sun/Mon AEST would have nothing new; we skip them.
+on:
+  schedule:
+    - cron: "0 21 * * 1-5"
+  workflow_dispatch: {}   # allow manual runs from the Actions tab
+
+# Let the build commit the day's snapshots back, and publish to Pages.
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Never let two daily runs overlap.
+concurrency:
+  group: daily-etf-flow
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build (scrape -> deltas -> static site)
+        run: python -m etf_lite.build
+
+      - name: Commit updated snapshots
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/snapshots
+          if git diff --cached --quiet; then
+            echo "No new snapshots to commit."
+          else
+            git commit -m "data: holdings snapshots $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

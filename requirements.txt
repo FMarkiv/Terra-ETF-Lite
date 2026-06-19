@@ -1,0 +1,6 @@
+duckdb>=0.10
+pandas>=2.0
+requests>=2.31
+pyyaml>=6.0
+openpyxl>=3.1        # SPDR publishes holdings as XLSX
+beautifulsoup4>=4.12 # BetaShares table-scrape fallback
