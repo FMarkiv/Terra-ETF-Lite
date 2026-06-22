@@ -79,9 +79,20 @@ def resolve_isins(raw_by_fund: dict[str, list[dict]]) -> None:
     logger.info("Resolved %d ISIN(s) from the crosswalk", n)
 
 
+def _git(*args):
+    return subprocess.run(["git", "-C", str(REPO_ROOT), *args], capture_output=True, text=True)
+
+
+def pull() -> None:
+    """Sync with the remote first so the crosswalk is fresh (CI's latest 17-fund
+    snapshots) and the later push can't conflict with CI's commits."""
+    r = _git("pull", "--rebase", "origin", "main")
+    logger.info("git pull --rebase: %s", "ok" if r.returncode == 0 else r.stderr.strip())
+
+
 def publish() -> None:
     def git(*args):
-        return subprocess.run(["git", "-C", str(REPO_ROOT), *args], capture_output=True, text=True)
+        return _git(*args)
 
     git("add", "data/snapshots")
     if git("diff", "--cached", "--quiet").returncode == 0:
@@ -123,9 +134,13 @@ def main(argv=None) -> int:
     ap.add_argument("--wait", type=int, default=14400, help="browser wait budget seconds (default 14400 = 4h)")
     ap.add_argument("--headless", action="store_true", help="headless browser (no human verify possible)")
     ap.add_argument("--no-push", action="store_true", help="don't commit/push/trigger the site")
+    ap.add_argument("--no-pull", action="store_true", help="don't git pull --rebase first")
     ap.add_argument("--no-telegram", action="store_true", help="don't send the Telegram message")
     ap.add_argument("--config", default="config/telegram.yaml", help="telegram.yaml path (desktop)")
     args = ap.parse_args(argv)
+
+    if not args.no_pull and not args.from_file:
+        pull()
 
     as_of = date.fromisoformat(args.as_of) if args.as_of else None
     if args.from_file:
