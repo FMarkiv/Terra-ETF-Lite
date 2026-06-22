@@ -6,3 +6,8 @@ venv/
 # Build output is regenerated each run and published to Pages; not committed.
 site/
 # The CSV snapshot history IS committed (it's the persistent store) — do not ignore data/.
+
+# SECRETS — never commit (this repo is public). The desktop Sprott scraper reads
+# the bot token from config/telegram.yaml here; CI uses Actions secrets instead.
+config/telegram.yaml
+config/*.local.yaml
