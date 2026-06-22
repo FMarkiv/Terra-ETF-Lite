@@ -28,4 +28,13 @@ UNIVERSE: list[dict] = [
     {"etf_ticker": "URA",      "issuer": "globalx",    "commodity_vertical": "uranium",            "fund_page_url": "https://www.globalxetfs.com/funds/ura"},
     {"etf_ticker": "URNM-ASX", "issuer": "betashares", "commodity_vertical": "uranium",            "fund_page_url": "https://www.betashares.com.au/fund/global-uranium-etf/"},
     {"etf_ticker": "XME",      "issuer": "spdr",       "commodity_vertical": "diversified_mining", "fund_page_url": "https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-sp-metals-mining-etf-xme"},
+
+    # External funds — Sprott is Cloudflare-gated, so CI can't scrape it. These
+    # are fed by a desktop browser scraper (scripts/sprott_browser_scrape.py in
+    # the main repo) that commits their snapshots here. The CI build SKIPS
+    # fetching them (see _fetch_all) but still loads their committed CSVs and
+    # computes their deltas, so they appear on the dashboard like any other fund.
+    {"etf_ticker": "SETM", "issuer": "sprott", "commodity_vertical": "critical_minerals", "fund_page_url": "https://sprottetfs.com/setm-sprott-critical-materials-etf/", "external": True},
+    {"etf_ticker": "URNM", "issuer": "sprott", "commodity_vertical": "uranium",           "fund_page_url": "https://sprottetfs.com/urnm-sprott-uranium-miners-etf/",      "external": True},
 ]
+

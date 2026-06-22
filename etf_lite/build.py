@@ -44,6 +44,12 @@ def _fetch_all(session) -> tuple[list[dict], list[dict]]:
         ticker = spec["etf_ticker"]
         rec = {"etf_ticker": ticker, "commodity_vertical": spec["commodity_vertical"],
                "status": "failed", "rows": [], "error": None}
+        # External funds (e.g. Sprott) are fed by a desktop scraper that commits
+        # their CSVs here; CI must not try to fetch them (no parser, Cloudflare).
+        if spec.get("external"):
+            rec["status"], rec["error"] = "external", None
+            per_etf.append(rec)
+            continue
         try:
             parser = get_parser(spec["issuer"])
             raw = parser.fetch_holdings(ticker, spec["fund_page_url"], session=session)
@@ -132,6 +138,7 @@ def build_site(etf_status: list[dict]) -> dict:
         "ingested": sum(1 for e in etf_status if e["status"] == "ingested"),
         "skipped": sum(1 for e in etf_status if e["status"] == "skipped"),
         "failed": sum(1 for e in etf_status if e["status"] in ("failed", "no_data", "future_date")),
+        "external": sum(1 for e in etf_status if e["status"] == "external"),
     }
 
     # Render: copy the static frontend + write the data payload alongside it.
