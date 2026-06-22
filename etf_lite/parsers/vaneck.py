@@ -68,6 +68,7 @@ def _map_json_holdings(holdings: list[dict], as_of) -> list[dict]:
                 "currency": h.get("CurrencyCode"),
                 "sector": h.get("Sector"),
                 "country": h.get("Country"),
+                "asset_class": h.get("SecurityType") or h.get("AssetClass") or h.get("AssetClassName"),
                 "as_of_date": as_of,
             }
         )
@@ -143,6 +144,7 @@ class VanEckParser(HoldingsAdapter):
                 "currency": pick(r, "Currency", "Local Currency"),
                 "sector": pick(r, "Sector"),
                 "country": pick(r, "Country"),
+                "asset_class": pick(r, "Asset Class", "SecurityType", "Security Type"),
                 "as_of_date": as_of,
             }
             for r in records

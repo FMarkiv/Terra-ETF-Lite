@@ -31,7 +31,7 @@ SNAPSHOT_DIR = REPO_ROOT / "data" / "snapshots"
 COLUMNS = [
     "as_of_date", "etf_ticker", "constituent_ticker", "constituent_name", "isin",
     "sedol", "shares_held", "market_value", "weight_pct", "currency", "sector",
-    "country", "source",
+    "country", "asset_class", "instrument_type", "source",
 ]
 
 SOURCE = "web_csv"
@@ -106,6 +106,13 @@ def load_connection() -> duckdb.DuckDBPyConnection:
             "FROM read_csv_auto(?, header=true, union_by_name=true)",
             [glob],
         )
+        # If every snapshot predates the classification columns, union_by_name
+        # won't create them — add them (NULL) so the delta SQL can reference them.
+        existing = {r[1] for r in conn.execute(
+            "PRAGMA table_info('etf_holdings_snapshot')").fetchall()}
+        for col in ("asset_class", "instrument_type"):
+            if col not in existing:
+                conn.execute(f"ALTER TABLE etf_holdings_snapshot ADD COLUMN {col} VARCHAR")
     else:
         # First run, no history yet — create an empty, correctly-typed table.
         conn.execute(
@@ -115,7 +122,8 @@ def load_connection() -> duckdb.DuckDBPyConnection:
                 constituent_ticker VARCHAR, constituent_name VARCHAR, isin VARCHAR,
                 sedol VARCHAR, shares_held DOUBLE, market_value DOUBLE,
                 weight_pct DOUBLE, currency VARCHAR, sector VARCHAR,
-                country VARCHAR, source VARCHAR
+                country VARCHAR, asset_class VARCHAR, instrument_type VARCHAR,
+                source VARCHAR
             )
             """
         )

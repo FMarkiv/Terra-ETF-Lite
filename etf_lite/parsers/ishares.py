@@ -48,6 +48,7 @@ _FIELD_MAP = {
     "currencyCode": "currency",
     "sectorName": "sector",
     "countryOfRisk": "country",
+    "assetClass": "asset_class",
 }
 
 
@@ -166,6 +167,7 @@ class ISharesParser(HoldingsAdapter):
                 "currency": pick(r, "Market Currency", "Currency"),
                 "sector": pick(r, "Sector"),
                 "country": pick(r, "Location", "Country"),
+                "asset_class": pick(r, "Asset Class"),
                 "as_of_date": as_of,
             }
             for r in records

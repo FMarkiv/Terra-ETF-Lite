@@ -77,6 +77,7 @@ class AmplifyParser(HoldingsAdapter):
                 "currency": "USD",
                 "sector": pick(r, "Sector"),
                 "country": pick(r, "Country"),
+                "asset_class": pick(r, "SecurityType", "Asset Class", "Security Type"),
                 "as_of_date": pick(r, "Date"),
             }
             for r in mine

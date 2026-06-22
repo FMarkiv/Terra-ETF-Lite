@@ -86,6 +86,7 @@ def _scrape_table(html: str, fund_page_url: str) -> list[dict]:
                     "currency": pick(rec, "Currency"),
                     "sector": pick(rec, "Sector"),
                     "country": pick(rec, "Country"),
+                    "asset_class": pick(rec, "Asset Class", "Security Type"),
                     "as_of_date": as_of,
                 }
             )
@@ -136,6 +137,7 @@ class BetaSharesParser(HoldingsAdapter):
                         "currency": "AUD",
                         "sector": pick(r, "Sector"),
                         "country": pick(r, "Country"),
+                        "asset_class": pick(r, "Asset Class", "Security Type"),
                         "as_of_date": as_of,
                     }
                     for r in records

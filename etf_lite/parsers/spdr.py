@@ -102,6 +102,7 @@ class SpdrParser(HoldingsAdapter):
                     "currency": pick(rec, "Local Currency", "Currency"),
                     "sector": pick(rec, "Sector"),
                     "country": pick(rec, "Country"),
+                    "asset_class": pick(rec, "Asset Class"),
                     "as_of_date": as_of,
                 }
             )

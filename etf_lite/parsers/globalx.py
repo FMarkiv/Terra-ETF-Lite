@@ -94,6 +94,7 @@ class GlobalXParser(HoldingsAdapter):
                     "currency": "USD",
                     "sector": pick(r, "Sector"),
                     "country": pick(r, "Country", "COUNTRY"),
+                    "asset_class": pick(r, "Asset Class", "SecurityType", "Security Type"),
                     "as_of_date": (pick(r, "AS_OF_DATE") if is_eu else None) or as_of,
                 }
             )

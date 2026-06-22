@@ -20,6 +20,7 @@ CANONICAL_FIELDS: tuple[str, ...] = (
     "currency",
     "sector",
     "country",
+    "asset_class",   # raw issuer label (e.g. "Equity", "Cash", "Futures"); may be None
     "as_of_date",
 )
 

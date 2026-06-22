@@ -19,24 +19,9 @@ from datetime import date, datetime
 logger = logging.getLogger(__name__)
 
 from .base import CANONICAL_FIELDS
+from .classify import CASH, classify_instrument
 
 _ISIN_RE = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
-
-# Substrings that mark a cash / money-market / residual line.
-_CASH_MARKERS = (
-    "cash",
-    "money market",
-    "money mkt",
-    "net other asset",
-    "other net asset",
-    "us dollar",
-    "usd ",
-    "margin",
-    "collateral",
-    "net current asset",
-    "liquidity fund",
-    "repurchase",
-)
 
 # Accepted date formats seen across providers (and ISO).
 _DATE_FORMATS = (
@@ -110,13 +95,6 @@ def _coerce_date(value):
     return None
 
 
-def _is_cash_row(row: dict) -> bool:
-    blob = " ".join(
-        str(row.get(k, "") or "") for k in ("constituent_name", "constituent_ticker")
-    ).lower()
-    return any(m in blob for m in _CASH_MARKERS)
-
-
 def _detect_fractional(weights: list[float]) -> bool:
     """Decide whether a batch of weights is on a 0-1 fractional scale."""
     nums = [w for w in weights if w is not None]
@@ -147,6 +125,7 @@ def normalise_holdings(
         row["currency"] = _clean_str(row["currency"])
         row["sector"] = _clean_str(row["sector"])
         row["country"] = _clean_str(row["country"])
+        row["asset_class"] = _clean_str(row["asset_class"])
         row["shares_held"] = _to_float(row["shares_held"])
         row["market_value"] = _to_float(row["market_value"])
         row["weight_pct"] = _to_float(row["weight_pct"])
@@ -169,7 +148,8 @@ def normalise_holdings(
             if r["weight_pct"] is not None:
                 r["weight_pct"] *= 100.0
 
-    # Third pass: drop non-holding rows, tag cash, warn on partial rows.
+    # Third pass: drop non-holding rows, classify instrument type, tag cash,
+    # warn on partial rows.
     result: list[dict] = []
     for r in cleaned:
         has_identity = r["constituent_ticker"] or r["isin"]
@@ -182,8 +162,10 @@ def normalise_holdings(
             logger.debug("%sdropping non-holding row: %r", ctx, (r["constituent_name"] or "")[:50])
             continue
 
-        if _is_cash_row(r):
-            r["isin"] = "CASH"
+        # Single source of truth for cash/FX/derivative/equity (see classify.py).
+        r["instrument_type"] = classify_instrument(r)
+        if r["instrument_type"] == CASH and not (r["isin"] and r["isin"] != "CASH"):
+            r["isin"] = "CASH"  # sentinel kept for the cross-ETF / legacy filters
         if not has_identity:
             logger.warning("%srow has a quantity but no ticker/ISIN: %r", ctx,
                            (r["constituent_name"] or "")[:50])

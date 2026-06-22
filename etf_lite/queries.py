@@ -31,20 +31,30 @@ _FX_CURRENCY_CODES = (
     "HUF", "CZK", "RUB",
 )
 
-# Predicate (on alias ``h``) selecting only trackable, real-economic holdings.
-# Excludes: the CASH sentinel; identity-less residuals; bare-currency-code FX
-# sleeves; and zero-economic rows (weight = 0 AND market_value = 0) — index
-# futures the funds hold for cash equitization, which report no weight/value and
-# only churn add/remove pairs as their quarterly contract rolls. A real holding
-# always has weight or value; a tiny name (TATA STEEL, weight rounds to 0.00 but
-# ~$37k value) clears this because its market_value is non-zero.
-_TRACKABLE = (
+# Legacy heuristic predicate (on alias ``h``) — applied only to rows written
+# before the ``instrument_type`` column existed (NULL there). Excludes: the CASH
+# sentinel; identity-less residuals; bare-currency-code FX sleeves; and
+# zero-economic rows (weight = 0 AND market_value = 0) — index futures held for
+# cash equitization, which report no weight/value and only churn add/remove pairs
+# as their quarterly contract rolls. A real holding always has weight or value; a
+# tiny name (TATA STEEL, weight rounds to 0.00 but ~$37k value) clears this.
+_LEGACY_TRACKABLE = (
     "COALESCE(h.isin, h.constituent_ticker) IS NOT NULL "
     "AND COALESCE(h.isin, h.constituent_ticker) <> 'CASH' "
     "AND NOT (h.isin IS NULL AND UPPER(TRIM(h.constituent_ticker)) IN ("
     + ", ".join(f"'{c}'" for c in _FX_CURRENCY_CODES)
     + ")) "
     "AND NOT (COALESCE(h.weight_pct, 0) = 0 AND COALESCE(h.market_value, 0) = 0)"
+)
+
+# Trackable = the classifier tagged the row 'equity' (etf_lite.classify, computed
+# at normalise time from the issuer's asset-class label or heuristics). Legacy
+# rows with no instrument_type fall back to the heuristic predicate above, so the
+# committed history keeps working unchanged.
+_TRACKABLE = (
+    "(CASE WHEN h.instrument_type IS NOT NULL "
+    "THEN h.instrument_type = 'equity' "
+    "ELSE (" + _LEGACY_TRACKABLE + ") END)"
 )
 
 
