@@ -9,7 +9,7 @@ optionally filter changes and signals through ``config/thresholds.yaml``.
 from __future__ import annotations
 
 import logging
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from datetime import date
 from pathlib import Path
 
@@ -175,3 +175,38 @@ class DeltaEngine:
             apply_thresholds: bool = True) -> DeltaResult:
         raw = self.compute_deltas(source, target_date)
         return self.apply_thresholds(raw) if apply_thresholds else raw
+
+
+def scope_result(result: DeltaResult, *, keep=None, drop=None) -> DeltaResult:
+    """Return a copy of ``result`` restricted to a subset of ETFs.
+
+    Pass ``keep`` (a set of tickers to retain) or ``drop`` (a set to exclude).
+    Cross-ETF signals are re-filtered to the surviving funds and dropped if fewer
+    than two ETFs remain (the converging threshold). Used to split one delta run
+    into the auto-scraped (17) message and the SETM/URNM message.
+    """
+    keep = set(keep) if keep is not None else None
+    drop = set(drop) if drop is not None else set()
+
+    def want(t):
+        return (t in keep) if keep is not None else (t not in drop)
+
+    A = [r for r in result.additions if want(r.get("etf_ticker"))]
+    R = [r for r in result.removals if want(r.get("etf_ticker"))]
+    C = [r for r in result.changes if want(r.get("etf_ticker"))]
+    sigs = []
+    for s in result.cross_etf_signals:
+        det = [d for d in s.get("etf_details", []) if want(d.get("etf_ticker"))]
+        n = len({d.get("etf_ticker") for d in det})
+        if n >= 2:
+            sigs.append({**s, "etf_details": det, "n_etfs": n})
+
+    return replace(
+        result, additions=A, removals=R, changes=C, cross_etf_signals=sigs,
+        summary={
+            **result.summary,
+            "total_additions": len(A), "total_removals": len(R),
+            "total_significant_changes": len(C), "total_cross_etf_signals": len(sigs),
+            "etfs_processed": len({r.get("etf_ticker") for r in (A + R + C)}),
+        },
+    )

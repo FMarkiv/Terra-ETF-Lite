@@ -37,6 +37,14 @@ jobs:
       - name: Build (scrape -> deltas -> static site)
         run: python -m etf_lite.build
 
+      - name: Send Telegram alert (17 auto-scraped funds)
+        # Sends only if the secrets are set; otherwise notify.py logs a preview
+        # and exits 0 (so an unconfigured bot never fails the run).
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/notify.py
+
       - name: Commit updated snapshots
         run: |
           git config user.name  "github-actions[bot]"

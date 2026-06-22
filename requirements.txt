@@ -4,3 +4,6 @@ requests>=2.31
 pyyaml>=6.0
 openpyxl>=3.1        # SPDR publishes holdings as XLSX
 beautifulsoup4>=4.12 # BetaShares table-scrape fallback
+python-telegram-bot>=21  # Telegram alert (CI sends the 17-fund message)
+# playwright is desktop-only (Sprott browser scrape) — install separately:
+#   pip install playwright && playwright install chromium
