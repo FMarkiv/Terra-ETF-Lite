@@ -46,17 +46,22 @@ function td(text, cls = "") { return el("td", { class: cls }, text == null ? "�
 function tdNum(text, cls = "") { return el("td", { class: ("num " + cls).trim() }, text == null ? "—" : String(text)); }
 
 // Column factories: a column has {label, num, sort:(row)->comparable, cell:(row)->node}.
+// numcol `absSort` ranks by magnitude (biggest mover, either direction) — used
+// for the Δ columns so the default sort surfaces the largest moves first.
 function col(label, sort, cell) { return { label, num: false, sort, cell: cell || ((r) => td(sort(r))) }; }
-function numcol(label, sort, render, cls) {
+function numcol(label, sort, render, cls, absSort = false) {
   return {
-    label, num: true, sort,
+    label, num: true, sort, absSort,
     cell: (r) => tdNum(render(r), typeof cls === "function" ? cls(r) : (cls || "")),
   };
 }
 
 // -- generic sortable table -------------------------------------------------
-function dataTable(id, columns, rows) {
+function dataTable(id, columns, rows, defaultSort) {
   if (!rows.length) return el("div", { class: "empty" }, "none");
+
+  // Seed a sensible initial ranking (with a visible arrow) until the user clicks.
+  if (!SORT[id] && defaultSort) SORT[id] = { ...defaultSort };
 
   const st = SORT[id];
   let data = rows.slice();
@@ -66,8 +71,8 @@ function dataTable(id, columns, rows) {
     data.sort((a, b) => {
       let va = c.sort(a), vb = c.sort(b);
       if (c.num) {
-        va = (va == null ? -Infinity : va);
-        vb = (vb == null ? -Infinity : vb);
+        va = (va == null ? -Infinity : (c.absSort ? Math.abs(va) : va));
+        vb = (vb == null ? -Infinity : (c.absSort ? Math.abs(vb) : vb));
         return (va - vb) * dir;
       }
       va = (va == null ? "" : String(va)).toLowerCase();
@@ -125,30 +130,32 @@ function viewDeltas() {
     chip("", s.etfs_processed, "ETFs compared")
   ));
 
+  // Default sort: additions/removals by weight (largest first); changes by the
+  // biggest weight move (magnitude, either direction) — the "what moved most" view.
   wrap.appendChild(deltaSection("Additions", adds, "deltas:add", [
     col("ETF", (r) => r.etf_ticker, (r) => td(r.etf_ticker, "tk")),
     col("Ticker", (r) => r.constituent_ticker),
     col("Name", (r) => r.constituent_name, (r) => td(clip(r.constituent_name), "nm")),
     numcol("Weight", (r) => r.curr_weight_pct, (r) => fmtW(r.curr_weight_pct)),
-    numcol("Value Δ", (r) => r.delta_market_value, (r) => fmtUsd(r.delta_market_value), "pos"),
-  ]));
+    numcol("Value Δ", (r) => r.delta_market_value, (r) => fmtUsd(r.delta_market_value), "pos", true),
+  ], { col: 3, dir: "desc" }));
 
   wrap.appendChild(deltaSection("Removals", rems, "deltas:rem", [
     col("ETF", (r) => r.etf_ticker, (r) => td(r.etf_ticker, "tk")),
     col("Ticker", (r) => r.constituent_ticker),
     col("Name", (r) => r.constituent_name, (r) => td(clip(r.constituent_name), "nm")),
     numcol("Was", (r) => r.prev_weight_pct, (r) => fmtW(r.prev_weight_pct)),
-    numcol("Value Δ", (r) => r.delta_market_value, (r) => fmtUsd(r.delta_market_value), "neg"),
-  ]));
+    numcol("Value Δ", (r) => r.delta_market_value, (r) => fmtUsd(r.delta_market_value), "neg", true),
+  ], { col: 3, dir: "desc" }));
 
   wrap.appendChild(deltaSection("Weight / Share Changes", chgs, "deltas:chg", [
     col("ETF", (r) => r.etf_ticker, (r) => td(r.etf_ticker, "tk")),
     col("Ticker", (r) => r.constituent_ticker),
     col("Name", (r) => r.constituent_name, (r) => td(clip(r.constituent_name), "nm")),
-    numcol("Weight Δ", (r) => r.delta_weight_pct, (r) => fmtPct(r.delta_weight_pct), (r) => signClass(r.delta_weight_pct)),
-    numcol("Shares Δ", (r) => r.pct_change_shares, (r) => fmtShares(r.pct_change_shares), (r) => signClass(r.pct_change_shares)),
-    numcol("Value Δ", (r) => r.delta_market_value, (r) => fmtUsd(r.delta_market_value), (r) => signClass(r.delta_market_value)),
-  ]));
+    numcol("Weight Δ", (r) => r.delta_weight_pct, (r) => fmtPct(r.delta_weight_pct), (r) => signClass(r.delta_weight_pct), true),
+    numcol("Shares Δ", (r) => r.pct_change_shares, (r) => fmtShares(r.pct_change_shares), (r) => signClass(r.pct_change_shares), true),
+    numcol("Value Δ", (r) => r.delta_market_value, (r) => fmtUsd(r.delta_market_value), (r) => signClass(r.delta_market_value), true),
+  ], { col: 3, dir: "desc" }));
 
   return wrap;
 }
@@ -175,9 +182,9 @@ function viewCross() {
     numcol("↓", (g) => g.n_etfs_weight_down || 0, (g) => g.n_etfs_weight_down || 0, "neg"),
     numcol("+", (g) => g.n_etfs_added || 0, (g) => g.n_etfs_added || 0, "pos"),
     numcol("−", (g) => g.n_etfs_removed || 0, (g) => g.n_etfs_removed || 0, "neg"),
-    numcol("Value Δ", (g) => g.total_delta_market_value, (g) => fmtUsd(g.total_delta_market_value), (g) => signClass(g.total_delta_market_value)),
+    numcol("Value Δ", (g) => g.total_delta_market_value, (g) => fmtUsd(g.total_delta_market_value), (g) => signClass(g.total_delta_market_value), true),
     col("Funds", fundsStr, (g) => td(fundsStr(g), "dim")),
-  ], sigs));
+  ], sigs, { col: 2, dir: "desc" }));   // default: most funds converging first
   return wrap;
 }
 
@@ -197,7 +204,7 @@ function viewCoverage() {
     col("As-of", (e) => e.as_of_date || e.latest_stored, (e) => td(e.as_of_date || e.latest_stored, "mono")),
     numcol("Rows", (e) => e.n_today || 0, (e) => e.n_today || 0),
     col("Note", (e) => e.error, (e) => td(e.error ? clip(e.error, 80) : "", "dim")),
-  ], etfs));
+  ], etfs, { col: 0, dir: "asc" }));   // default: alphabetical by ETF
   return wrap;
 }
 
@@ -205,10 +212,10 @@ function viewCoverage() {
 function chip(cls, n, lbl) {
   return el("div", { class: "chip " + cls }, el("b", {}, String(n ?? 0)), el("span", { class: "lbl" }, lbl));
 }
-function deltaSection(title, rows, tableId, columns) {
+function deltaSection(title, rows, tableId, columns, defaultSort) {
   return el("div", { class: "section" },
     el("h2", {}, title, el("span", { class: "count" }, String(rows.length))),
-    dataTable(tableId, columns, rows));
+    dataTable(tableId, columns, rows, defaultSort));
 }
 function clip(s, n = 38) { s = s || ""; return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 
