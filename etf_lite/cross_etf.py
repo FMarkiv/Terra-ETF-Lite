@@ -65,6 +65,41 @@ def _collapse_cross_listings(
     return list(chosen.values())
 
 
+def collapse_moves(rows: list[dict], equiv_groups: list[list[str]] | None = None) -> list[dict]:
+    """Collapse same-index cross-listings in a per-fund moves list to one row per
+    (group, constituent).
+
+    GDX and GDX-ASX are the same basket, so a constituent's move appears
+    identically in each — keep one row, labelled with the group's representative
+    (first-listed) ticker. Different indices (GDXJ, RING) and distinct
+    constituents are untouched. Constituent key is ``COALESCE(isin, ticker)`` so
+    holdings without an ISIN collapse correctly within a group, never across
+    different names.
+    """
+    if not equiv_groups:
+        return list(rows)
+    ticker_to_group, group_to_order = _build_group_index(equiv_groups)
+
+    def rank(group_key: str, ticker: str) -> int:
+        order = group_to_order.get(group_key)
+        return order.index(ticker) if order and ticker in order else 0
+
+    chosen: dict[tuple, dict] = {}
+    order_seen: list[tuple] = []
+    for d in rows:
+        etf = d.get("etf_ticker")
+        group_key = ticker_to_group.get(etf, etf)
+        const_key = d.get("isin") or d.get("constituent_ticker")
+        k = (group_key, const_key)
+        existing = chosen.get(k)
+        if existing is None:
+            chosen[k] = d
+            order_seen.append(k)
+        elif rank(group_key, etf) < rank(group_key, existing.get("etf_ticker")):
+            chosen[k] = d
+    return [chosen[k] for k in order_seen]
+
+
 def aggregate_cross_etf(deltas: list[dict], equiv_groups: list[list[str]] | None = None) -> list[dict]:
     """Group ``deltas`` by ISIN into per-constituent flow signals.
 

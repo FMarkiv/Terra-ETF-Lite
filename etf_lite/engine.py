@@ -17,7 +17,7 @@ import duckdb
 import yaml
 
 from .queries import fetch_daily_deltas
-from .cross_etf import aggregate_cross_etf, converging_count
+from .cross_etf import aggregate_cross_etf, collapse_moves, converging_count
 
 logger = logging.getLogger(__name__)
 
@@ -175,7 +175,13 @@ class DeltaEngine:
     def run(self, source: str = "web_csv", target_date: date | None = None,
             apply_thresholds: bool = True) -> DeltaResult:
         raw = self.compute_deltas(source, target_date)
-        return self.apply_thresholds(raw) if apply_thresholds else raw
+        result = self.apply_thresholds(raw) if apply_thresholds else raw
+        equiv = (self.config.get("cross_etf") or {}).get("equivalent_etf_groups")
+        if equiv:
+            result.additions = collapse_moves(result.additions, equiv)
+            result.removals = collapse_moves(result.removals, equiv)
+            result.changes = collapse_moves(result.changes, equiv)
+        return result
 
 
 def scope_result(result: DeltaResult, *, keep=None, drop=None) -> DeltaResult:
