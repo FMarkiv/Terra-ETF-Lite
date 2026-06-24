@@ -28,7 +28,17 @@ _FX_CURRENCY_CODES = (
     "AUD", "CAD", "GBP", "HKD", "JPY", "ZAR", "USD", "EUR", "CHF", "NZD", "SGD",
     "SEK", "NOK", "DKK", "CNY", "CNH", "KRW", "BRL", "MXN", "IDR", "INR", "PLN",
     "TRY", "PHP", "THB", "MYR", "TWD", "SAR", "AED", "ILS", "CLP", "PEN", "COP",
-    "HUF", "CZK", "RUB",
+    "HUF", "CZK", "RUB", "QAR", "KWD", "BHD", "OMR", "RON", "BGN", "ISK",
+)
+
+# FX-forward rows are named like a currency pair, e.g. ``QAR/USD`` / ``INR/USD``.
+# The issuer classifier tags these inconsistently across scrapes (sometimes
+# cash, sometimes nothing), and a missing currency code or a non-CASH isin let
+# them leak as phantom additions. A name that is exactly ``CCY/CCY`` is never a
+# real holding, so exclude it unconditionally — the reliable catch-all.
+_FX_PAIR_NAME = (
+    "regexp_matches(UPPER(TRIM(COALESCE(h.constituent_name, ''))), "
+    "'^[A-Z]{3}/[A-Z]{3}$')"
 )
 
 # Legacy heuristic predicate (on alias ``h``) — applied only to rows written
@@ -52,9 +62,10 @@ _LEGACY_TRACKABLE = (
 # rows with no instrument_type fall back to the heuristic predicate above, so the
 # committed history keeps working unchanged.
 _TRACKABLE = (
-    "(CASE WHEN h.instrument_type IS NOT NULL "
+    "((CASE WHEN h.instrument_type IS NOT NULL "
     "THEN h.instrument_type = 'equity' "
-    "ELSE (" + _LEGACY_TRACKABLE + ") END)"
+    "ELSE (" + _LEGACY_TRACKABLE + ") END) "
+    "AND NOT " + _FX_PAIR_NAME + ")"
 )
 
 
