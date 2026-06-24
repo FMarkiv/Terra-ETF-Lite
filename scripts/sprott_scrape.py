@@ -91,21 +91,18 @@ def pull() -> None:
 
 
 def publish() -> None:
-    def git(*args):
-        return _git(*args)
-
-    git("add", "data/snapshots")
-    if git("diff", "--cached", "--quiet").returncode == 0:
+    _git("add", "data/snapshots")
+    if _git("diff", "--cached", "--quiet").returncode == 0:
         logger.info("No new Sprott snapshots to publish.")
         return
-    git("commit", "-m", f"data: Sprott (SETM/URNM) snapshots {date.today().isoformat()}")
-    if git("push", "origin", "main").returncode != 0:
+    _git("commit", "-m", f"data: Sprott (SETM/URNM) snapshots {date.today().isoformat()}")
+    if _git("push", "origin", "main").returncode != 0:
         logger.warning("Push failed — resolve and re-run.")
         return
-    gh = subprocess.run(["gh", "workflow", "run", "daily.yml", "-R", "FMarkiv/Terra-ETF-Lite"],
-                        capture_output=True, text=True)
-    logger.info("Pushed + triggered Pages rebuild." if gh.returncode == 0
-                else f"Pushed; Pages trigger failed: {gh.stderr.strip()}")
+    # The push to data/snapshots/** triggers the on:push Pages workflow
+    # (.github/workflows/pages.yml), which rebuilds + redeploys live Pages. No
+    # `gh` needed.
+    logger.info("Pushed SETM/URNM snapshots — Pages rebuilds via the on:push workflow.")
 
 
 def notify(config_path: str) -> None:
@@ -155,6 +152,7 @@ def main(argv=None) -> int:
     resolve_isins(raw_by_fund)
 
     run_date = date.today()
+    stored = []
     for ticker, rows in raw_by_fund.items():
         norm = normalise_holdings(rows, ticker)
         dates = sorted({r["as_of_date"] for r in norm if r["as_of_date"]})
@@ -163,11 +161,18 @@ def main(argv=None) -> int:
             continue
         status, asof, n = append_snapshot(ticker, norm)
         logger.info("[%s] %s (as_of=%s, n=%s)", ticker, status, asof, n)
+        if status == "ingested":
+            stored.append(ticker)
 
     if not args.no_push:
         publish()
+    # Only message when a new snapshot was actually stored — re-running on a day
+    # whose data is already committed must not re-send the Sprott alert.
     if not args.no_telegram:
-        notify(args.config)
+        if stored:
+            notify(args.config)
+        else:
+            logger.info("No new Sprott snapshot stored (already up to date) — no Telegram message.")
     return 0
 
 

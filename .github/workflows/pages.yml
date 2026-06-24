@@ -1,0 +1,53 @@
+name: pages-rebuild
+
+# Rebuild + redeploy the dashboard when committed snapshots change — used after
+# the desktop Sprott scraper pushes SETM/URNM. Renders from the committed CSVs
+# only (no scrape, no Telegram), so live Pages reflects the new data without
+# re-alerting. The daily scheduled build (daily.yml) handles the 17-fund scrape,
+# alert and its own Pages deploy; this covers the desktop-fed funds.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/snapshots/**"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Serialise Pages deploys (across this and daily.yml's deploy).
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    # GITHUB_TOKEN pushes don't trigger workflows, so daily.yml's own snapshot
+    # commit won't reach here — but guard anyway: only human/desktop pushes.
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Render site from committed snapshots (no scrape, no alert)
+        run: python scripts/render_site.py
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: rebuild
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

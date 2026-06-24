@@ -7,7 +7,12 @@ name: daily-etf-flow
 on:
   schedule:
     - cron: "0 21 * * 1-5"
-  workflow_dispatch: {}   # allow manual runs from the Actions tab
+  workflow_dispatch:       # allow manual runs from the Actions tab
+    inputs:
+      send_alert:
+        description: "Also send the 17-fund Telegram alert"
+        type: boolean
+        default: false
 
 # Let the build commit the day's snapshots back, and publish to Pages.
 permissions:
@@ -38,8 +43,10 @@ jobs:
         run: python -m etf_lite.build
 
       - name: Send Telegram alert (17 auto-scraped funds)
-        # Sends only if the secrets are set; otherwise notify.py logs a preview
-        # and exits 0 (so an unconfigured bot never fails the run).
+        # Only on the scheduled run (or a manual run with send_alert=true). This
+        # stops non-scheduled rebuilds from re-sending the daily alert. Sends only
+        # if the secrets are set; otherwise notify.py logs a preview and exits 0.
+        if: ${{ github.event_name == 'schedule' || inputs.send_alert }}
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
