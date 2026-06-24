@@ -14,6 +14,16 @@ overrides_by_vertical:
 
 cross_etf:
   min_converging_etfs: 2          # At least 2 ETFs moving same direction
+  # Cross-listings of the SAME fund/index are one underlying portfolio, so they
+  # must count as ONE converging vote — not several. Each list below collapses
+  # to a single vote per ISIN (representative = first ticker present). Funds not
+  # listed here stay independent (RING, SIL, URNM, URA, etc. are different
+  # indices and must NOT be grouped). The .L tickers are absent from the lite
+  # universe but harmless to list.
+  equivalent_etf_groups:
+    - ["GDX", "GDX.L", "GDX-ASX"]   # VanEck Gold Miners (NYSE Arca Gold Miners Index)
+    - ["GDXJ", "GDXJ.L"]            # VanEck Junior Gold Miners (MVIS Junior)
+    - ["COPX", "4COP"]              # Global X Copper Miners (Solactive)
 
 additions_removals:
   always_surface: true

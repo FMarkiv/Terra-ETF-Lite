@@ -90,7 +90,8 @@ class DeltaEngine:
             elif self._is_material_change(r):
                 changes.append(r)
 
-        signals = aggregate_cross_etf(rows)
+        equiv_groups = (self.config.get("cross_etf") or {}).get("equivalent_etf_groups")
+        signals = aggregate_cross_etf(rows, equiv_groups=equiv_groups)
 
         as_of, prev = self._resolve_dates(rows)
         etfs = {r["etf_ticker"] for r in rows if r.get("etf_ticker")}
