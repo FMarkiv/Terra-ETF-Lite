@@ -69,6 +69,40 @@ _TRACKABLE = (
 )
 
 
+def _snapshot_cte(date_rank: int) -> str:
+    """One aggregated row per (etf, source, ISIN-or-ticker) for ``date_rank``.
+
+    A provider sometimes lists the same security twice in one snapshot (same
+    ISIN, different ticker label — e.g. OceanaGold 'OGC CN' + 'OGC' on a relabel
+    day, or multiple lots). Diffing the full position against an arbitrary
+    sub-row invents huge phantom moves (+1100% shares / +$207M when ~flat). Sum
+    shares/value/weight per delta key first, keeping the largest-value row's
+    ticker/name as the label.
+    """
+    return f"""
+        SELECT
+            h.etf_ticker,
+            h.source,
+            COALESCE(h.isin, h.constituent_ticker)                     AS delta_key,
+            MAX(h.isin)                                                AS isin,
+            arg_max(h.constituent_ticker, COALESCE(h.market_value, 0)) AS constituent_ticker,
+            arg_max(h.constituent_name, COALESCE(h.market_value, 0))   AS constituent_name,
+            any_value(h.as_of_date)                                    AS as_of_date,
+            SUM(h.shares_held)                                         AS shares_held,
+            SUM(h.market_value)                                        AS market_value,
+            SUM(h.weight_pct)                                          AS weight_pct,
+            MAX(h.snapshot_id)                                         AS snapshot_id
+        FROM etf_holdings_snapshot h
+        JOIN ranked_dates d
+          ON h.etf_ticker = d.etf_ticker
+         AND h.source     = d.source
+         AND h.as_of_date = d.as_of_date
+        WHERE d.date_rank = {date_rank}
+          AND {_TRACKABLE}
+        GROUP BY h.etf_ticker, h.source, COALESCE(h.isin, h.constituent_ticker)
+    """
+
+
 def daily_deltas_sql(where: str = "") -> str:
     """Return the canonical per-constituent delta SQL.
 
@@ -89,26 +123,8 @@ def daily_deltas_sql(where: str = "") -> str:
                ) AS date_rank
         FROM distinct_dates
     ),
-    cur AS (
-        SELECT h.*
-        FROM etf_holdings_snapshot h
-        JOIN ranked_dates d
-          ON h.etf_ticker = d.etf_ticker
-         AND h.source     = d.source
-         AND h.as_of_date = d.as_of_date
-        WHERE d.date_rank = 1
-          AND {_TRACKABLE}
-    ),
-    prev AS (
-        SELECT h.*
-        FROM etf_holdings_snapshot h
-        JOIN ranked_dates d
-          ON h.etf_ticker = d.etf_ticker
-         AND h.source     = d.source
-         AND h.as_of_date = d.as_of_date
-        WHERE d.date_rank = 2
-          AND {_TRACKABLE}
-    )
+    cur AS ({_snapshot_cte(1)}),
+    prev AS ({_snapshot_cte(2)})
     SELECT
         COALESCE(c.etf_ticker, p.etf_ticker)                 AS etf_ticker,
         COALESCE(c.source, p.source)                         AS source,
@@ -139,8 +155,7 @@ def daily_deltas_sql(where: str = "") -> str:
     FULL OUTER JOIN prev p
       ON c.etf_ticker = p.etf_ticker
      AND c.source     = p.source
-     AND COALESCE(c.isin, c.constituent_ticker)
-       = COALESCE(p.isin, p.constituent_ticker)
+     AND c.delta_key  = p.delta_key
     LEFT JOIN etf_universe u
       ON COALESCE(c.etf_ticker, p.etf_ticker) = u.etf_ticker
     """
