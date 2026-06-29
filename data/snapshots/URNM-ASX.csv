@@ -392,3 +392,52 @@ as_of_date,etf_ticker,constituent_ticker,constituent_name,isin,sedol,shares_held
 2026-06-25,URNM-ASX,"Total weights may not add up to 100% due to rounding or immateriality. Holdings, weights and values are subject to change.",,,,,,,AUD,,,,derivative,web_csv
 2026-06-25,URNM-ASX,"Betashares makes no representation or warranty of any kind, either express or implied, with respect to the holdings data,",,,,,,,AUD,,,,derivative,web_csv
 2026-06-25,URNM-ASX,"its timeliness, the information's use or any other matter.",,,,,,,AUD,,,,derivative,web_csv
+2026-06-26,URNM-ASX,CCJ UN,CAMECO CORP,,,354532.0,53251775.75,16.31322448,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,KAP LI,NAC KAZATOMPROM JSC,,,506890.0,51379946.35,15.73980561,AUD,Energy,Kazakhstan,Equities,equity,web_csv
+2026-06-26,URNM-ASX,U-U CT,SPROTT PHYSICAL URANIUM TRUST,,,1653564.0,44092787.49,13.50744703,AUD,,,Equities,equity,web_csv
+2026-06-26,URNM-ASX,DNN UA,DENISON MINES CORP,,,3339190.0,14865593.53,4.553947,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,NXE UN,NEXGEN ENERGY LTD,,,1037554.0,14519135.88,4.44781267,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,PDN AT,PALADIN ENERGY LTD,,,1551309.0,14504739.15,4.44340236,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,UEC UA,URANIUM ENERGY CORP,,,885518.0,13598659.54,4.16583264,AUD,Energy,United States,Equities,equity,web_csv
+2026-06-26,URNM-ASX,UUUU UA,ENERGY FUELS INC/CANADA,,,641221.0,13408362.56,4.1075368,AUD,Energy,United States,Equities,equity,web_csv
+2026-06-26,URNM-ASX,DYL AT,DEEP YELLOW LTD,,,9194519.0,13056216.98,3.99966002,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,YCA LN,YELLOW CAKE PLC,,,1260789.0,12753645.95,3.90696998,AUD,Industrials,Britain,Equities,equity,web_csv
+2026-06-26,URNM-ASX,1164 HK,CGN MINING CO LTD,,,23794965.0,11398205.88,3.49174255,AUD,Energy,China,Equities,equity,web_csv
+2026-06-26,URNM-ASX,ISO CT,ISOENERGY LTD,,,649078.0,9356855.93,2.86639251,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,URG UA,UR-ENERGY INC,,,3742570.0,7055308.87,2.16133332,AUD,Energy,United States,Equities,equity,web_csv
+2026-06-26,URNM-ASX,BMN AT,BANNERMAN ENERGY LTD,,,1958213.0,6109624.56,1.87163105,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,CXU AT,CAULDRON ENERGY LTD,,,46365877.0,4451124.19,1.3635637,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,BOE AT,BOSS ENERGY LTD,,,3914377.0,3953520.77,1.21112716,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,EU CV,ENCORE ENERGY CORP,,,1764168.0,3460566.57,1.06011487,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,SASK CV,ATHA ENERGY CORP,,,2982333.0,3046927.87,0.9334002,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,URC CT,URANIUM ROYALTY CORP,,,731121.0,2883252.0,0.88325951,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,GLO CT,GLOBAL ATOMIC CORP,,,3842079.0,2551441.92,0.78161233,AUD,Materials,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,NUCL UR,EAGLE NUCLEAR ENERGY CORP,,,163716.0,2376446.0,0.72800384,AUD,Energy,United States,Equities,equity,web_csv
+2026-06-26,URNM-ASX,AGE AT,ALLIGATOR ENERGY LTD,,,41838658.0,2175610.22,0.66647952,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,BKY LN,BERKELEY ENERGIA LTD,,,4058190.0,2058378.34,0.63056654,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,MGA CT,MEGA URANIUM LTD,,,3590062.0,2017300.88,0.61798281,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,LOT AT,LOTUS RESOURCES LTD,,,2576290.0,1700351.4,0.52088806,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,PEN AT,PENINSULA ENERGY LTD,,,4392773.0,1581398.28,0.48444779,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,AEU AT,ATOMIC EAGLE LTD,,,3683478.0,1547060.76,0.47392879,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,LAM CT,LARAMIDE RESOURCES LTD,,,2672124.0,1501500.0,0.45997164,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,FSY CT,FORSYS METALS CORP,,,3053577.0,1357076.01,0.41572859,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,JAGU UA,JAGUAR URANIUM CORP,,,491148.0,1210776.68,0.37091105,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,WUC CF,WESTERN URANIUM & VANADIUM COR,,,1617940.0,1008319.78,0.30889011,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,CVV CV,CANALASKA URANIUM LTD,,,2073766.0,974593.75,0.29855843,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,EL8 AT,ELEVATE URANIUM LTD,,,4393809.0,966637.98,0.29612125,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,AEE AT,AURA ENERGY LTD,,,9612732.0,961273.2,0.29447779,AUD,Energy,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,SYH CV,SKYHARBOUR RESOURCES LTD,,,2382461.0,949284.62,0.2908052,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,FUU CV,F3 URANIUM CORP,,,6194400.0,885999.18,0.27141825,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,STUD CV,STALLION URANIUM CORP,,,3386792.0,882337.52,0.27029653,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,AEC CV,ANFIELD ENERGY INC,,,149592.0,872670.94,0.26733525,AUD,Energy,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,PUR CV,PREMIER AMERICAN URANIUM INC,,,1617940.0,809961.79,0.24812484,AUD,,Canada,Equities,equity,web_csv
+2026-06-26,URNM-ASX,FNUC UR,FRONTIER NUCLEAR AND MINERALS,,,313789.0,723498.42,0.22163753,AUD,Materials,Australia,Equities,equity,web_csv
+2026-06-26,URNM-ASX,HKD,HKD - HONG KONG DOLLAR,CASH,,547826.05,101319.79999999999,0.031038450000000002,AUD,,,Cash,cash,web_csv
+2026-06-26,URNM-ASX,USD,USD - UNITED STATES DOLLAR,CASH,,17194.48,24933.99,0.00763831,AUD,,,Cash,cash,web_csv
+2026-06-26,URNM-ASX,GBP,GBP - BRITISH POUND,CASH,,10796.1,20663.97,0.00633023,AUD,,,Cash,cash,web_csv
+2026-06-26,URNM-ASX,AUD,AUD - AUSTRALIA DOLLAR,CASH,,14995.04,14995.04,0.0045936,AUD,,,Cash,cash,web_csv
+2026-06-26,URNM-ASX,CAD,CAD - CANADA DOLLAR,CASH,,12792.39,13069.46,0.00400372,AUD,,,Cash,cash,web_csv
+2026-06-26,URNM-ASX,EUR,EUR - EURO,CASH,,12.05,19.9,6.1e-06,AUD,,,Cash,cash,web_csv
+2026-06-26,URNM-ASX,"Total weights may not add up to 100% due to rounding or immateriality. Holdings, weights and values are subject to change.",,,,,,,AUD,,,,derivative,web_csv
+2026-06-26,URNM-ASX,"Betashares makes no representation or warranty of any kind, either express or implied, with respect to the holdings data,",,,,,,,AUD,,,,derivative,web_csv
+2026-06-26,URNM-ASX,"its timeliness, the information's use or any other matter.",,,,,,,AUD,,,,derivative,web_csv
