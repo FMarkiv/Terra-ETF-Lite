@@ -53,3 +53,30 @@ as_of_date,etf_ticker,constituent_ticker,constituent_name,isin,sedol,shares_held
 2026-06-22,URNM,AGE AU,Alligator Energy Ltd.,,B55ZH25,89182867.0,2774939.86,0.14,USD,,,,equity,web_csv
 2026-06-22,URNM,CVV CN,CanAlaska Uranium Ltd.,,BR1YTV3,8436326.0,2731355.55,0.14,USD,,,,equity,web_csv
 2026-06-22,URNM,,Cash Equivalent,CASH,,6940955.3,6940955.3,0.34,USD,,,,cash,web_csv
+2026-07-02,URNM,CCJ,Cameco Corp.,,2158684,3951210.0,381449813.4,19.88,USD,,,,equity,web_csv
+2026-07-02,URNM,U-U CN,Sprott Physical Uranium Trust,,BNZKG52,14002373.0,268446692.66,13.99,USD,,,,equity,web_csv
+2026-07-02,URNM,NXE,NexGen Energy Ltd.,,BCH0BB4,24472609.0,235671224.67,12.28,USD,,,,equity,web_csv
+2026-07-02,URNM,DNN,Denison Mines Corp.,,B0122F3,31698608.0,101435545.6,5.29,USD,,,,equity,web_csv
+2026-07-02,URNM,KAP LI,NAC Kazatomprom JSC,,BGXQL36,1341483.0,94574551.5,4.93,USD,,,,equity,web_csv
+2026-07-02,URNM,UUUU,Energy Fuels Inc.,,BFV4XW8,6390332.0,88250484.92,4.6,USD,,,,equity,web_csv
+2026-07-02,URNM,DYL AU,Deep Yellow Ltd.,,6480275,86120548.0,87326427.61,4.55,USD,,,,equity,web_csv
+2026-07-02,URNM,PDN AU,Paladin Energy Ltd.,,6668468,12275066.0,84537266.62,4.41,USD,,,,equity,web_csv
+2026-07-02,URNM,UEC,Uranium Energy Corp.,,B0VLLY2,7592645.0,81772786.65,4.26,USD,,,,equity,web_csv
+2026-07-02,URNM,1164 HK,CGN Mining Co. Ltd.,,B755514,246770300.0,76457921.05,3.99,USD,,,,equity,web_csv
+2026-07-02,URNM,YCA LN,Yellow Cake PLC,,BF50RG4,10269229.0,73731452.54,3.84,USD,,,,equity,web_csv
+2026-07-02,URNM,URG,Ur-Energy Inc.,,B0WW4L2,40196255.0,54264944.25,2.83,USD,,,,equity,web_csv
+2026-07-02,URNM,BMN AU,Bannerman Energy Ltd.,,B07DXJ1,20854068.0,47632788.89,2.48,USD,,,,equity,web_csv
+2026-07-02,URNM,ISO CN,IsoEnergy Ltd.,,BTTRKM6,4236962.0,42511524.24,2.22,USD,,,,equity,web_csv
+2026-07-02,URNM,BOE AU,Boss Energy Ltd.,,B1XLCQ6,43240472.0,35615469.37,1.86,USD,,,,equity,web_csv
+2026-07-02,URNM,EU CN,Encore Energy Corp.,,BN48958,21109131.0,27237588.39,1.42,USD,,,,equity,web_csv
+2026-07-02,URNM,SASK CN,Atha Energy Corp.,,BNQNDF9,33634948.0,25850233.26,1.35,USD,,,,equity,web_csv
+2026-07-02,URNM,GLO CN,Global Atomic Corp.,,BF11BK3,51880926.0,22680186.23,1.18,USD,,,,equity,web_csv
+2026-07-02,URNM,NUCL,Eagle Nuclear Energy Corp.,,BSRFLX3,1742363.0,15437336.18,0.8,USD,,,,equity,web_csv
+2026-07-02,URNM,MGA CN,Mega Uranium Ltd.,,2817833,37337151.0,14479416.92,0.75,USD,,,,equity,web_csv
+2026-07-02,URNM,URC CN,Uranium Royalty Corp.,,BKMD921,4650470.0,13083289.48,0.68,USD,,,,equity,web_csv
+2026-07-02,URNM,LOT AU,Lotus Resources Ltd.,,BK6XLC1,27507106.0,12565799.37,0.65,USD,,,,equity,web_csv
+2026-07-02,URNM,PEN AU,Peninsula Energy Ltd.,,6486381,44064359.0,12199688.25,0.64,USD,,,,equity,web_csv
+2026-07-02,URNM,AGE AU,Alligator Energy Ltd.,,B55ZH25,293665471.0,10976096.84,0.57,USD,,,,equity,web_csv
+2026-07-02,URNM,LAM CN,Laramide Resources Ltd.,,2507952,22651935.0,9103897.73,0.47,USD,,,,equity,web_csv
+2026-07-02,URNM,CVV CN,CanAlaska Uranium Ltd.,,BR1YTV3,7819326.0,2398312.58,0.13,USD,,,,equity,web_csv
+2026-07-02,URNM,,Cash Equivalent,CASH,,-1115785.02,-1115785.02,-0.05,USD,,,,cash,web_csv
