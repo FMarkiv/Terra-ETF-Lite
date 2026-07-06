@@ -54,7 +54,21 @@ jobs:
             echo "No new snapshots to commit."
           else
             git commit -m "data: holdings snapshots $(date -u +%Y-%m-%d)"
-            git push
+            # Retry against a moving remote: another push (a manual commit or an
+            # overlapping run) can land between our checkout and push, which
+            # rejects a plain `git push` (fetch first). Rebase onto the latest
+            # origin/main and retry — our change only touches data/snapshots, so
+            # it rebases cleanly on top of unrelated commits.
+            for attempt in 1 2 3 4 5; do
+              if git push; then
+                echo "pushed on attempt $attempt"; break
+              fi
+              echo "push rejected (attempt $attempt) — rebasing onto origin/main"
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; echo "rebase conflict"; exit 1; }
+              if [ "$attempt" -eq 5 ]; then echo "push failed after 5 attempts"; exit 1; fi
+              sleep 3
+            done
           fi
 
       - name: Upload Pages artifact
