@@ -34,7 +34,12 @@ UNIVERSE: list[dict] = [
     # the main repo) that commits their snapshots here. The CI build SKIPS
     # fetching them (see _fetch_all) but still loads their committed CSVs and
     # computes their deltas, so they appear on the dashboard like any other fund.
-    {"etf_ticker": "SETM", "issuer": "sprott", "commodity_vertical": "critical_minerals", "fund_page_url": "https://sprottetfs.com/setm-sprott-critical-materials-etf/", "external": True},
-    {"etf_ticker": "URNM", "issuer": "sprott", "commodity_vertical": "uranium",           "fund_page_url": "https://sprottetfs.com/urnm-sprott-uranium-miners-etf/",      "external": True},
+    #
+    # PAUSED (enabled=False): the desktop capture produced bad rows (e.g. a
+    # mislabelled ISIN faking a Taseko removal + phantom addition), so SETM/URNM
+    # are toggled OFF the tracker until the capture is fixed. Their committed
+    # snapshots stay in git; flip enabled back to True to re-enable.
+    {"etf_ticker": "SETM", "issuer": "sprott", "commodity_vertical": "critical_minerals", "fund_page_url": "https://sprottetfs.com/setm-sprott-critical-materials-etf/", "external": True, "enabled": False},
+    {"etf_ticker": "URNM", "issuer": "sprott", "commodity_vertical": "uranium",           "fund_page_url": "https://sprottetfs.com/urnm-sprott-uranium-miners-etf/",      "external": True, "enabled": False},
 ]
 

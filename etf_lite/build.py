@@ -17,7 +17,7 @@ import shutil
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from .engine import DeltaEngine
+from .engine import DeltaEngine, scope_result
 from .isin_resolver import IsinResolver
 from .normaliser import normalise_holdings
 from .parsers import get_parser
@@ -42,6 +42,8 @@ def _fetch_all(session) -> tuple[list[dict], list[dict]]:
     per_etf = []
     for spec in UNIVERSE:
         ticker = spec["etf_ticker"]
+        if spec.get("enabled", True) is False:
+            continue  # paused fund (e.g. Sprott SETM/URNM) — omit from the tracker
         rec = {"etf_ticker": ticker, "commodity_vertical": spec["commodity_vertical"],
                "status": "failed", "rows": [], "error": None}
         # External funds (e.g. Sprott) are fed by a desktop scraper that commits
@@ -113,9 +115,15 @@ def ingest() -> list[dict]:
 
 def build_site(etf_status: list[dict]) -> dict:
     """Compute deltas from the full history and render the static dashboard."""
+    # Paused funds (enabled=False, e.g. Sprott SETM/URNM): their committed CSVs
+    # are still loaded, so drop them from the deltas and the freshness panel.
+    disabled = {s["etf_ticker"] for s in UNIVERSE if s.get("enabled", True) is False}
+
     conn = load_connection()
     try:
         result = DeltaEngine(conn).run(source="web_csv", apply_thresholds=True)
+        if disabled:
+            result = scope_result(result, drop=disabled)
         # Per-ETF latest stored date (freshness panel).
         freshness = {
             row[0]: row[1].isoformat() if row[1] else None
@@ -123,6 +131,7 @@ def build_site(etf_status: list[dict]) -> dict:
                 "SELECT etf_ticker, MAX(as_of_date) FROM etf_holdings_snapshot "
                 "WHERE source='web_csv' GROUP BY etf_ticker"
             ).fetchall()
+            if row[0] not in disabled
         }
     finally:
         conn.close()
@@ -134,7 +143,7 @@ def build_site(etf_status: list[dict]) -> dict:
     payload["generated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload["etfs"] = sorted(etf_status, key=lambda x: x["etf_ticker"])
     payload["coverage"] = {
-        "tracked": len(UNIVERSE),
+        "tracked": sum(1 for s in UNIVERSE if s.get("enabled", True) is not False),
         "ingested": sum(1 for e in etf_status if e["status"] == "ingested"),
         "skipped": sum(1 for e in etf_status if e["status"] == "skipped"),
         "failed": sum(1 for e in etf_status if e["status"] in ("failed", "no_data", "future_date")),
