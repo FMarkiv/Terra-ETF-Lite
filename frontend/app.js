@@ -208,6 +208,88 @@ function viewCoverage() {
   return wrap;
 }
 
+// -- Guide view ---------------------------------------------------------------
+// Static explainer: what each tab/table/column means and how often data moves.
+// Keep the threshold numbers in sync with config/thresholds.yaml and the
+// schedule with .github/workflows/daily.yml.
+function guideSection(title, ...kids) {
+  return el("div", { class: "section guide" }, el("h2", {}, title), ...kids);
+}
+function p(...kids) { return el("p", { class: "gp" }, ...kids); }
+function defTable(rows) {
+  return el("table", { class: "gdef" }, el("tbody", {},
+    ...rows.map(([term, desc]) => el("tr", {},
+      el("td", { class: "gterm" }, term), el("td", { class: "gdesc" }, desc)))));
+}
+function b(s) { return el("b", {}, s); }
+
+function viewGuide() {
+  const wrap = el("div", { class: "guidewrap" });
+
+  wrap.appendChild(guideSection("What this is",
+    p("A daily snapshot-diff of mining & resources ETF holdings. Each run downloads every ",
+      "tracked fund's published holdings file, stores it as a snapshot, and diffs it against ",
+      "the previous stored snapshot. Everything on this page describes the change between ",
+      "those two dates — shown in the header as ", b("previous → current"), ".")));
+
+  wrap.appendChild(guideSection("Update frequency",
+    defTable([
+      ["Scheduled build", "GitHub Actions runs Tue–Sat 07:00 Sydney time (Mon–Fri 21:00 UTC) — one run per US trading day, after issuers have posted the previous US close and ASX files are in. No runs Sun/Mon Sydney (US markets closed)."],
+      ["Auto-scraped funds", "17 funds (VanEck, Global X, iShares, SPDR, Betashares, Amplify) are fetched from issuer web CSVs on every scheduled run."],
+      ["Sprott funds", "SETM and URNM are marked “external” — their holdings come from a separate desktop browser scraper, so they update when that scraper is run, not on the CI schedule."],
+      ["No new file", "If an issuer hasn't published a fresh file (same as-of date as already stored), the fund shows as “skipped” in Coverage and contributes no deltas that day."],
+      ["“built” timestamp", "The header's built time (UTC) is when the site was last generated — the freshest possible data age."],
+    ])));
+
+  wrap.appendChild(guideSection("Deltas tab",
+    p("Three tables comparing the current snapshot to the previous one, per fund. ",
+      "The summary chips count rows across all funds: added / removed / material changes, ",
+      "and how many ETFs had both snapshots available to compare."),
+    defTable([
+      ["Additions", "Holdings present today that were absent from the previous snapshot. “Weight” is the position's current portfolio weight; “Value Δ” is the market value of the new position. Additions always surface — no threshold."],
+      ["Removals", "Holdings in the previous snapshot that are gone today. “Was” is the weight it held before removal. Also always surfaced."],
+      ["Weight / Share Changes", "Existing positions whose move was material. A change surfaces if ANY of these trip: |weight Δ| ≥ 0.25% (gold funds 0.30%, copper 0.20%), |shares Δ| ≥ 5%, or |value Δ| ≥ $1M."],
+      ["Weight Δ", "Change in portfolio weight, in percentage points (e.g. +0.310% means the position went from say 2.1% to 2.41% of the fund)."],
+      ["Shares Δ", "Percent change in the number of shares/units the fund holds — the cleanest buy/sell signal, immune to price moves."],
+      ["Value Δ", "Change in the position's market value in the fund's reporting currency. Note a position's value can rise on price alone with zero shares bought."],
+      ["Default sort", "Numeric columns rank by magnitude — biggest mover first, in either direction. Click any header to re-sort."],
+    ])));
+
+  wrap.appendChild(guideSection("Cross-ETF tab",
+    p("One row per underlying company that moved in ≥ 2 funds on the same day — ",
+      "several managers acting on the same name at once is a stronger signal than one. ",
+      "Cross-listings of the same fund (e.g. GDX and its ASX listing) count as a single vote."),
+    defTable([
+      ["ETFs", "How many distinct funds moved this constituent today."],
+      ["↑ / ↓", "Of those funds, how many increased vs decreased its weight."],
+      ["+ / −", "How many funds newly added vs entirely removed it."],
+      ["Value Δ", "Sum of the value changes across those funds. Indicative only — it mixes fund reporting currencies (USD/AUD) without conversion."],
+      ["Funds", "Which ETF tickers moved it."],
+    ])));
+
+  wrap.appendChild(guideSection("Coverage tab",
+    p("Per-fund health report for today's run — use it to judge how complete the Deltas are. ",
+      "“As-of” is the holdings date inside the issuer's file (not the download time); ",
+      "“Rows” is the number of holdings ingested."),
+    defTable([
+      ["ingested", "New snapshot fetched and stored — this fund's deltas are current."],
+      ["skipped", "Issuer file unchanged since last run (same as-of date). Not an error — there's just nothing new yet."],
+      ["external", "Sprott fund fed by the desktop scraper — updated outside the CI schedule."],
+      ["failed / no_data", "Download or parse failed, or the file had no usable holdings. This fund's deltas are missing today; the header shows a count of unavailable funds."],
+      ["future_date", "Issuer published a file dated in the future (their timezone quirk) — held back until the date is valid."],
+    ])));
+
+  wrap.appendChild(guideSection("Reading notes",
+    defTable([
+      ["Weights", "As reported by each issuer — not recomputed. Small funds' weights move on flows; big funds' weights also drift on price."],
+      ["Currencies", "Value Δ is in each fund's own reporting currency; cross-ETF totals mix them."],
+      ["Filter boxes", "Each tab's filter matches ticker, company name, ISIN or fund — state is kept per tab."],
+      ["Alerts", "A Telegram alert with the day's material moves goes out after each scheduled build (auto-scraped funds only)."],
+    ])));
+
+  return wrap;
+}
+
 // -- helpers ----------------------------------------------------------------
 function chip(cls, n, lbl) {
   return el("div", { class: "chip " + cls }, el("b", {}, String(n ?? 0)), el("span", { class: "lbl" }, lbl));
@@ -242,7 +324,10 @@ function render() {
   const wasFilter = active && active.id === "filterInput";
   const caret = wasFilter ? active.selectionStart : null;
 
-  const view = TAB === "cross" ? viewCross() : TAB === "coverage" ? viewCoverage() : viewDeltas();
+  const view = TAB === "cross" ? viewCross()
+    : TAB === "coverage" ? viewCoverage()
+    : TAB === "guide" ? viewGuide()
+    : viewDeltas();
   $("#view").replaceChildren(view);
   document.querySelectorAll("#tabs button").forEach((b) =>
     b.classList.toggle("active", b.dataset.tab === TAB));

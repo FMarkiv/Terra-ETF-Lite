@@ -108,3 +108,14 @@ tbody tr:hover { background: #1a2229; }
 .tag.future_date { color: var(--amber); border-color: #3d301f; }
 
 #foot { color: var(--muted); font-size: 10px; padding: 10px 16px; border-top: 1px solid var(--grid); }
+
+/* guide tab */
+.guidewrap { max-width: 860px; }
+.guide .gp { margin: 0 0 10px; color: var(--fg); font-size: 12px; line-height: 1.55; }
+.guide .gp b { color: var(--teal-bright); font-weight: 500; }
+table.gdef td { white-space: normal; vertical-align: top; padding: 5px 8px; }
+td.gterm {
+  font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--teal-bright);
+  width: 160px; min-width: 160px;
+}
+td.gdesc { color: var(--fg); font-size: 12px; line-height: 1.5; }
