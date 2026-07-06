@@ -121,6 +121,16 @@ function viewDeltas() {
   const total = d.additions.length + d.removals.length + d.changes.length;
   const shown = adds.length + rems.length + chgs.length;
 
+  // The engine diffs each fund's two latest snapshots, whatever their dates —
+  // a fund that hasn't published since before this window keeps re-showing its
+  // last diff. Badge those rows with the fund's actual as-of date.
+  const stale = staleFundDates();
+  const etfCell = (r) => (stale[r.etf_ticker]
+    ? el("td", { class: "tk" }, r.etf_ticker, el("span", { class: "dim stale" }, ` ${stale[r.etf_ticker]}`))
+    : td(r.etf_ticker, "tk"));
+  const staleShown = [...new Set([...adds, ...rems, ...chgs]
+    .map((r) => r.etf_ticker).filter((t) => stale[t]))];
+
   const wrap = el("div", {});
   wrap.appendChild(filterBar("deltas", total, shown));
   wrap.appendChild(el("div", { class: "chips" },
@@ -129,11 +139,16 @@ function viewDeltas() {
     chip("chg", s.total_significant_changes, "material changes"),
     chip("", s.etfs_processed, "ETFs compared")
   ));
+  if (staleShown.length) {
+    wrap.appendChild(el("div", { class: "stalenote" },
+      "⚠ ", staleShown.map((t) => `${t} (last ${stale[t]})`).join(", "),
+      " — no new data this window; rows below dated in amber repeat the fund's most recent diff, not today's."));
+  }
 
   // Default sort: additions/removals by weight (largest first); changes by the
   // biggest weight move (magnitude, either direction) — the "what moved most" view.
   wrap.appendChild(deltaSection("Additions", adds, "deltas:add", [
-    col("ETF", (r) => r.etf_ticker, (r) => td(r.etf_ticker, "tk")),
+    col("ETF", (r) => r.etf_ticker, etfCell),
     col("Ticker", (r) => r.constituent_ticker),
     col("Name", (r) => r.constituent_name, (r) => td(clip(r.constituent_name), "nm")),
     numcol("Weight", (r) => r.curr_weight_pct, (r) => fmtW(r.curr_weight_pct)),
@@ -141,7 +156,7 @@ function viewDeltas() {
   ], { col: 3, dir: "desc" }));
 
   wrap.appendChild(deltaSection("Removals", rems, "deltas:rem", [
-    col("ETF", (r) => r.etf_ticker, (r) => td(r.etf_ticker, "tk")),
+    col("ETF", (r) => r.etf_ticker, etfCell),
     col("Ticker", (r) => r.constituent_ticker),
     col("Name", (r) => r.constituent_name, (r) => td(clip(r.constituent_name), "nm")),
     numcol("Was", (r) => r.prev_weight_pct, (r) => fmtW(r.prev_weight_pct)),
@@ -149,7 +164,7 @@ function viewDeltas() {
   ], { col: 3, dir: "desc" }));
 
   wrap.appendChild(deltaSection("Weight / Share Changes", chgs, "deltas:chg", [
-    col("ETF", (r) => r.etf_ticker, (r) => td(r.etf_ticker, "tk")),
+    col("ETF", (r) => r.etf_ticker, etfCell),
     col("Ticker", (r) => r.constituent_ticker),
     col("Name", (r) => r.constituent_name, (r) => td(clip(r.constituent_name), "nm")),
     numcol("Weight Δ", (r) => r.delta_weight_pct, (r) => fmtPct(r.delta_weight_pct), (r) => signClass(r.delta_weight_pct), true),
@@ -161,27 +176,51 @@ function viewDeltas() {
 }
 
 // -- Cross-ETF view ---------------------------------------------------------
+// Funds whose latest snapshot predates the current compare window (e.g. the
+// desktop-fed Sprott funds between scrapes) keep re-emitting their last diff.
+function staleFundDates() {
+  const out = {};
+  for (const e of DATA.etfs || []) {
+    const d = e.as_of_date || e.latest_stored;
+    if (d && DATA.previous_date && d < DATA.previous_date) out[e.etf_ticker] = d;
+  }
+  return out;
+}
+
 function viewCross() {
   const all = DATA.cross_etf_signals || [];
   const m = matcher(FILTER.cross, ["constituent_name", "constituent_ticker", "isin"]);
   const sigs = all.filter(m);
-  const fundsStr = (g) => (g.etf_details || []).map((x) => x.etf_ticker).join(", ");
+
+  const stale = staleFundDates();
+  const fundsStr = (g) => (g.etf_details || [])
+    .map((x) => (stale[x.etf_ticker] ? x.etf_ticker + "*" : x.etf_ticker)).join(", ");
+  const changed = (g) => (g.etf_details || []).filter((x) => x.delta_type === "change");
+  const unitsUp = (g) => changed(g).filter((x) => (x.delta_shares || 0) > 0).length;
+  const unitsDown = (g) => changed(g).filter((x) => (x.delta_shares || 0) < 0).length;
+  const anyStale = sigs.some((g) => (g.etf_details || []).some((x) => stale[x.etf_ticker]));
 
   const wrap = el("div", {});
   wrap.appendChild(filterBar("cross", all.length, sigs.length));
   wrap.appendChild(el("div", { class: "section" },
-    el("h2", {}, "Cross-ETF Consensus", el("span", { class: "count" }, String(sigs.length))),
+    el("h2", {}, "Cross-ETF Consensus", el("span", { class: "count" }, String(sigs.length)),
+      el("span", { class: "sub" }, `${DATA.previous_date || "—"} → ${DATA.as_of_date || "—"}`)),
     el("div", { class: "dim", style: "margin-bottom:8px;font-size:11px" },
-      "Constituents moved by ≥2 ETFs the same day. Value Δ mixes fund currencies (indicative).")
+      "Constituents moved by ≥2 ETFs. Weight ↑/↓ moves with price as much as trading — ",
+      "Units ↑/↓ (share-count direction) is the actual buy/sell signal. ",
+      "Value Δ mixes fund currencies (indicative).",
+      anyStale ? " * = stale fund: snapshot predates this window, its moves are older." : "")
   ));
   wrap.appendChild(dataTable("cross", [
     col("Name", (g) => g.constituent_name || g.constituent_ticker, (g) => td(clip(g.constituent_name || g.constituent_ticker), "nm")),
     col("ISIN", (g) => g.isin, (g) => td(g.isin, "dim")),
     numcol("ETFs", (g) => g.n_etfs, (g) => g.n_etfs, "tk"),
-    numcol("↑", (g) => g.n_etfs_weight_up || 0, (g) => g.n_etfs_weight_up || 0, "pos"),
-    numcol("↓", (g) => g.n_etfs_weight_down || 0, (g) => g.n_etfs_weight_down || 0, "neg"),
-    numcol("+", (g) => g.n_etfs_added || 0, (g) => g.n_etfs_added || 0, "pos"),
-    numcol("−", (g) => g.n_etfs_removed || 0, (g) => g.n_etfs_removed || 0, "neg"),
+    numcol("Units ↑", unitsUp, (g) => unitsUp(g) || "·", (g) => (unitsUp(g) ? "pos" : "dim")),
+    numcol("Units ↓", unitsDown, (g) => unitsDown(g) || "·", (g) => (unitsDown(g) ? "neg" : "dim")),
+    numcol("Added", (g) => g.n_etfs_added || 0, (g) => g.n_etfs_added || "·", (g) => (g.n_etfs_added ? "pos" : "dim")),
+    numcol("Removed", (g) => g.n_etfs_removed || 0, (g) => g.n_etfs_removed || "·", (g) => (g.n_etfs_removed ? "neg" : "dim")),
+    numcol("Wt ↑", (g) => g.n_etfs_weight_up || 0, (g) => g.n_etfs_weight_up || "·", "dim"),
+    numcol("Wt ↓", (g) => g.n_etfs_weight_down || 0, (g) => g.n_etfs_weight_down || "·", "dim"),
     numcol("Value Δ", (g) => g.total_delta_market_value, (g) => fmtUsd(g.total_delta_market_value), (g) => signClass(g.total_delta_market_value), true),
     col("Funds", fundsStr, (g) => td(fundsStr(g), "dim")),
   ], sigs, { col: 2, dir: "desc" }));   // default: most funds converging first
@@ -253,6 +292,7 @@ function viewGuide() {
       ["Shares Δ", "Percent change in the number of shares/units the fund holds — the cleanest buy/sell signal, immune to price moves."],
       ["Value Δ", "Change in the position's market value in the fund's reporting currency. Note a position's value can rise on price alone with zero shares bought."],
       ["Default sort", "Numeric columns rank by magnitude — biggest mover first, in either direction. Click any header to re-sort."],
+      ["Stale funds", "Deltas compare each fund's two most recent snapshots, whatever their dates. A fund that hasn't published since before the header's window (e.g. Sprott between desktop scrapes) re-shows its last diff every day — those rows carry an amber date next to the ETF ticker, and a warning banner lists them."],
     ])));
 
   wrap.appendChild(guideSection("Cross-ETF tab",
@@ -261,10 +301,11 @@ function viewGuide() {
       "Cross-listings of the same fund (e.g. GDX and its ASX listing) count as a single vote."),
     defTable([
       ["ETFs", "How many distinct funds moved this constituent today."],
-      ["↑ / ↓", "Of those funds, how many increased vs decreased its weight."],
-      ["+ / −", "How many funds newly added vs entirely removed it."],
-      ["Value Δ", "Sum of the value changes across those funds. Indicative only — it mixes fund reporting currencies (USD/AUD) without conversion."],
-      ["Funds", "Which ETF tickers moved it."],
+      ["Units ↑ / Units ↓", "Funds whose SHARE COUNT in the name rose vs fell — actual buying/selling. This is the signal to trust."],
+      ["Added / Removed", "Funds that newly added vs entirely removed the position — the strongest signal of all."],
+      ["Wt ↑ / Wt ↓", "Funds whose portfolio WEIGHT rose vs fell. Weight = price × shares ÷ fund size, so a sector-wide price move pushes every holder's weight the same way with zero trading — broad Wt agreement with no Units moves is price drift, not accumulation."],
+      ["Value Δ", "Sum of the value changes across those funds. Indicative only — it mixes fund reporting currencies (USD/AUD) without conversion, and rises on price alone."],
+      ["Funds", "Which ETF tickers moved it. A * marks a stale fund whose snapshot predates the compare window — its “move” is older than the others."],
     ])));
 
   wrap.appendChild(guideSection("Coverage tab",
