@@ -121,16 +121,33 @@ def build_site(etf_status: list[dict]) -> dict:
 
     conn = load_connection()
     try:
-        result = DeltaEngine(conn).run(source="web_csv", apply_thresholds=True)
-        if disabled:
-            result = scope_result(result, drop=disabled)
-        # Per-ETF latest stored date (freshness panel).
+        # Per-ETF latest stored date. Two uses: the freshness panel below, AND
+        # the aligned reference date — the newest date EVERY active fund has
+        # reached = min over active funds of MAX(as_of). Pinning each fund to
+        # <= that date yields a clean same-day cross-section.
+        maxes_by_etf = conn.execute(
+            "SELECT etf_ticker, MAX(as_of_date) FROM etf_holdings_snapshot "
+            "WHERE source='web_csv' GROUP BY etf_ticker"
+        ).fetchall()
+        active_maxes = [d for (t, d) in maxes_by_etf if t not in disabled and d is not None]
+        aligned_date = min(active_maxes) if active_maxes else None
+
+        # Latest: each fund diffs its own two freshest snapshots (mixed windows).
+        latest_result = scope_result(
+            DeltaEngine(conn).run(source="web_csv", apply_thresholds=True), drop=disabled)
+        # Aligned: pin every fund to its latest snapshot <= aligned_date so the
+        # cross-section is same-day apples-to-apples.
+        aligned_result = (
+            scope_result(
+                DeltaEngine(conn).run(source="web_csv", target_date=aligned_date,
+                                      apply_thresholds=True),
+                drop=disabled)
+            if aligned_date else latest_result
+        )
+
         freshness = {
             row[0]: row[1].isoformat() if row[1] else None
-            for row in conn.execute(
-                "SELECT etf_ticker, MAX(as_of_date) FROM etf_holdings_snapshot "
-                "WHERE source='web_csv' GROUP BY etf_ticker"
-            ).fetchall()
+            for row in maxes_by_etf
             if row[0] not in disabled
         }
     finally:
@@ -139,8 +156,12 @@ def build_site(etf_status: list[dict]) -> dict:
     for e in etf_status:
         e["latest_stored"] = freshness.get(e["etf_ticker"])
 
-    payload = result.to_dict()
+    # Top-level = aligned (default, back-compat for any top-level reader).
+    payload = aligned_result.to_dict()
     payload["generated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    payload["aligned_date"] = aligned_date.isoformat() if aligned_date else None
+    payload["default_view"] = "aligned"
+    payload["views"] = {"aligned": aligned_result.to_dict(), "latest": latest_result.to_dict()}
     payload["etfs"] = sorted(etf_status, key=lambda x: x["etf_ticker"])
     payload["coverage"] = {
         "tracked": sum(1 for s in UNIVERSE if s.get("enabled", True) is not False),

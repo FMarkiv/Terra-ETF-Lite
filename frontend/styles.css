@@ -35,6 +35,22 @@ body {
 .meta b { color: var(--fg); font-weight: 500; }
 .meta .warn { color: var(--amber); }
 
+/* view toggle (aligned vs latest) */
+#viewbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; border-bottom: 1px solid var(--grid); background: var(--panel-2);
+}
+.segmented { display: inline-flex; border: 1px solid var(--grid); }
+.segmented button {
+  background: none; border: none; border-right: 1px solid var(--grid); color: var(--muted);
+  cursor: pointer; padding: 4px 14px; font-size: 11px; letter-spacing: 0.04em;
+  font-family: "JetBrains Mono", monospace; text-transform: uppercase;
+}
+.segmented button:last-child { border-right: none; }
+.segmented button:hover { color: var(--fg); }
+.segmented button.active { color: var(--bg); background: var(--teal); font-weight: 600; }
+.viewhelp { color: var(--muted); font-size: 11px; }
+
 /* tabs */
 #tabs { display: flex; gap: 0; border-bottom: 1px solid var(--grid); background: var(--panel); }
 #tabs button {

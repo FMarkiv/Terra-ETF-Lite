@@ -9,10 +9,19 @@
 
 let DATA = null;
 let TAB = "deltas";
+let VIEW = "aligned";  // currentView: "aligned" (same-date cross-section) | "latest"
 const SORT = {};    // tableId -> { col: <index>, dir: "asc"|"desc" }
 const FILTER = {};  // tab -> query string
 
 const $ = (sel) => document.querySelector(sel);
+
+// The delta payload for the selected view. Funds post on different lags, so
+// "aligned" pins every fund to a common reference date for a clean same-day
+// cross-section; "latest" diffs each fund's own two freshest snapshots (mixed
+// windows). Falls back to the top-level fields if `views` is absent.
+function activeView() {
+  return (DATA.views && DATA.views[VIEW]) ? DATA.views[VIEW] : DATA;
+}
 
 function el(tag, attrs = {}, ...kids) {
   const n = document.createElement(tag);
@@ -115,7 +124,7 @@ function matcher(q, fields) {
 
 // -- Deltas view ------------------------------------------------------------
 function viewDeltas() {
-  const d = DATA, s = d.summary || {};
+  const d = activeView(), s = d.summary || {};
   const m = matcher(FILTER.deltas, ["etf_ticker", "constituent_ticker", "constituent_name", "isin"]);
   const adds = d.additions.filter(m), rems = d.removals.filter(m), chgs = d.changes.filter(m);
   const total = d.additions.length + d.removals.length + d.changes.length;
@@ -179,16 +188,18 @@ function viewDeltas() {
 // Funds whose latest snapshot predates the current compare window (e.g. the
 // desktop-fed Sprott funds between scrapes) keep re-emitting their last diff.
 function staleFundDates() {
+  const v = activeView();
   const out = {};
   for (const e of DATA.etfs || []) {
     const d = e.as_of_date || e.latest_stored;
-    if (d && DATA.previous_date && d < DATA.previous_date) out[e.etf_ticker] = d;
+    if (d && v.previous_date && d < v.previous_date) out[e.etf_ticker] = d;
   }
   return out;
 }
 
 function viewCross() {
-  const all = DATA.cross_etf_signals || [];
+  const v = activeView();
+  const all = v.cross_etf_signals || [];
   const m = matcher(FILTER.cross, ["constituent_name", "constituent_ticker", "isin"]);
   const sigs = all.filter(m);
 
@@ -204,7 +215,7 @@ function viewCross() {
   wrap.appendChild(filterBar("cross", all.length, sigs.length));
   wrap.appendChild(el("div", { class: "section" },
     el("h2", {}, "Cross-ETF Consensus", el("span", { class: "count" }, String(sigs.length)),
-      el("span", { class: "sub" }, `${DATA.previous_date || "—"} → ${DATA.as_of_date || "—"}`)),
+      el("span", { class: "sub" }, `${v.previous_date || "—"} → ${v.as_of_date || "—"}`)),
     el("div", { class: "dim", style: "margin-bottom:8px;font-size:11px" },
       "Constituents moved by ≥2 ETFs. Weight ↑/↓ moves with price as much as trading — ",
       "Units ↑/↓ (share-count direction) is the actual buy/sell signal. ",
@@ -344,18 +355,46 @@ function clip(s, n = 38) { s = s || ""; return s.length > n ? s.slice(0, n - 1) 
 
 // -- header / meta ----------------------------------------------------------
 function renderMeta() {
-  const d = DATA;
+  const d = DATA, v = activeView();
   const cov = d.coverage || {};
   const failTxt = cov.failed
     ? el("span", { class: "warn" }, ` · ${cov.failed} unavailable`)
     : null;
+  // As-of line reflects the selected view: Aligned pins every fund to one date;
+  // Latest shows each fund's own freshest window (dates mix across funds).
+  const asOfLine = VIEW === "latest"
+    ? el("div", {}, "Latest per fund — ",
+        el("b", {}, v.as_of_date || "—"), " vs ", el("b", {}, v.previous_date || "—"),
+        el("span", { class: "dim" }, " (mixed windows)"))
+    : el("div", {}, "Aligned cross-section — all funds as of ",
+        el("b", {}, d.aligned_date || v.as_of_date || "—"));
   $("#meta").replaceChildren(
-    el("div", {}, el("b", {}, d.previous_date || "—"), " → ", el("b", {}, d.as_of_date || "—")),
+    asOfLine,
     el("div", {},
       `${cov.tracked || 0} tracked · ${(cov.ingested || 0) + (cov.skipped || 0)} current`,
       failTxt),
     el("div", { class: "dim" }, `built ${(d.generated_at || "").replace("T", " ").replace("+00:00", "Z")}`)
   );
+}
+
+// -- view toggle (aligned vs latest) ----------------------------------------
+const VIEW_HELP = {
+  aligned: "Aligned = every fund compared on the same date (accurate cross-section, may lag to the slowest fund).",
+  latest: "Latest = each fund's freshest data (mixed dates).",
+};
+function updateViewHelp() {
+  const h = $("#viewhelp");
+  if (h) h.textContent = VIEW_HELP[VIEW] || "";
+}
+function setView(v) {
+  if (v !== "aligned" && v !== "latest") return;
+  VIEW = v;
+  try { localStorage.setItem("etfLiteView", v); } catch (e) {}
+  document.querySelectorAll("#viewtoggle button").forEach((b) =>
+    b.classList.toggle("active", b.dataset.view === VIEW));
+  updateViewHelp();
+  renderMeta();
+  render();
 }
 
 // -- routing ----------------------------------------------------------------
@@ -382,6 +421,8 @@ function render() {
 async function init() {
   document.querySelectorAll("#tabs button").forEach((b) =>
     b.addEventListener("click", () => { TAB = b.dataset.tab; render(); }));
+  document.querySelectorAll("#viewtoggle button").forEach((b) =>
+    b.addEventListener("click", () => setView(b.dataset.view)));
   try {
     const resp = await fetch("data.json", { cache: "no-store" });
     DATA = await resp.json();
@@ -389,6 +430,14 @@ async function init() {
     $("#view").replaceChildren(el("div", { class: "empty" }, "Could not load data.json — run the build."));
     return;
   }
+  // Resolve initial view: stored preference > payload default > "aligned".
+  let stored = null;
+  try { stored = localStorage.getItem("etfLiteView"); } catch (e) {}
+  VIEW = stored || DATA.default_view || "aligned";
+  if (DATA.views && !DATA.views[VIEW]) VIEW = DATA.views.aligned ? "aligned" : VIEW;
+  document.querySelectorAll("#viewtoggle button").forEach((b) =>
+    b.classList.toggle("active", b.dataset.view === VIEW));
+  updateViewHelp();
   renderMeta();
   render();
   $("#foot").textContent =
