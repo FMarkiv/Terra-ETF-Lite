@@ -1855,3 +1855,127 @@ as_of_date,etf_ticker,constituent_ticker,constituent_name,isin,sedol,shares_held
 2026-07-08,GDXJ,-AUD CASH-,,CASH,,79.0,54.0,0.0,AUD,,Australia,Cash Bal,cash,web_csv
 2026-07-08,GDXJ,-CAD CASH-,,CASH,,-1668149.0,-1176742.0,-0.02,CAD,,Canada,Cash Bal,cash,web_csv
 2026-07-08,GDXJ,,Other/Cash,CASH,,0.0,-7073825.0,-0.1,USD,,,Cash,cash,web_csv
+2026-07-09,GDXJ,EQX,Equinox Gold Corp,CA29446Y5020,,45623058.0,444368585.0,6.26,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,AGI,Alamos Gold Inc,CA0115321089,,14492779.0,433044237.0,6.11,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,EVN AU,Evolution Mining Ltd,AU000000EVN4,,54421441.0,424881639.0,5.99,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,EDV LN,Endeavour Mining Plc,GB00BL6K5J42,,7681258.0,381442923.0,5.38,GBP,Materials,United Kingdom,Stock,equity,web_csv
+2026-07-09,GDXJ,CDE,Coeur Mining Inc,US1921085049,,22253845.0,356506597.0,5.03,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,PE&OLES* MF,Industrias Penoles Sab De Cv,MXP554091415,,4656863.0,205591720.0,2.9,MXN,Materials,Mexico,Stock,equity,web_csv
+2026-07-09,GDXJ,AG,First Majestic Silver Corp,CA32076V1031,,11317130.0,194201951.0,2.74,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,HL,Hecla Mining Co,US4227041062,,12037294.0,190068872.0,2.68,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,IAG,Iamgold Corp,CA4509131088,,11676467.0,180634944.0,2.55,USD,Materials,Burkina Faso,Stock,equity,web_csv
+2026-07-09,GDXJ,EGO,Eldorado Gold Corp,CA2849025093,,5660291.0,173204905.0,2.44,USD,Materials,Turkey,Stock,equity,web_csv
+2026-07-09,GDXJ,LUG CN,Lundin Gold Inc,CA5503711080,,2531940.0,144082527.0,2.03,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,HMY,Harmony Gold Mining Co Ltd,US4132163001,,9537557.0,143254106.0,2.02,USD,Materials,South Africa,Stock,equity,web_csv
+2026-07-09,GDXJ,DPM CN,Dundee Precious Metals Inc,CA26139R1091,,3808844.0,134481957.0,1.9,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,OGC CN,Oceanagold Corp,CA6752224007,,5076743.0,126233497.0,1.78,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,GMIN CN,G Mining Ventures Corp,CA36270K1021,,4028406.0,121598313.0,1.71,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,SSRM,Ssr Mining Inc,CA7847301032,,3987190.0,116226589.0,1.64,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,BTG,B2gold Corp,CA11777Q2099,,28921173.0,111635728.0,1.57,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,BVN,Cia De Minas Buenaventura Saa,US2044481040,,3614899.0,106820265.0,1.51,USD,Materials,Peru,Stock,equity,web_csv
+2026-07-09,GDXJ,DSV CN,Discovery Silver Corp,CA25466C1077,,16765003.0,104570560.0,1.47,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,1818 HK,Zhaojin Mining Industry Co Ltd,CNE1000004R6,,40991700.0,94634845.0,1.33,HKD,Materials,China,Stock,equity,web_csv
+2026-07-09,GDXJ,OR,Or Royalties Inc,CA68390D1069,,3085440.0,91791840.0,1.29,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,MAU CN,Montage Gold Corp,CA61178L1013,,7124815.0,84959868.0,1.2,CAD,Materials,Côte D'Ivoire,Stock,equity,web_csv
+2026-07-09,GDXJ,GGP AU,Greatland Resources Ltd,AU0000397705,,11101174.0,84780867.0,1.2,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,PRU AU,Perseus Mining Ltd,AU000000PRU3,,24698910.0,82893427.0,1.17,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,ARTG CN,Artemis Gold Inc,CA04302L1004,,3426565.0,79689245.0,1.12,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,RMS AU,Ramelius Resources Ltd,AU000000RMS4,,37375898.0,76973550.0,1.09,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,KNT CN,K92 Mining Inc,CA4991131083,,4765417.0,75486761.0,1.06,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,CMM AU,Capricorn Metals Ltd,AU000000CMM9,,7856937.0,72441038.0,1.02,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,ARMN,Aris Mining Corp,CA04040Y1097,,4790463.0,70659329.0,1.0,USD,Materials,Colombia,Stock,equity,web_csv
+2026-07-09,GDXJ,GMD AU,Genesis Minerals Ltd,AU000000GMD9,,18224734.0,68977081.0,0.97,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,TXG CN,Torex Gold Resources Inc,CA8910546032,,1722902.0,65803976.0,0.93,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,SKE,Skeena Resources Ltd,CA83056P7157,,2368605.0,65041893.0,0.92,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,VAU AU,Vault Minerals Ltd,AU0000427775,,19859367.0,64979013.0,0.92,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,AYA CN,Aya Gold & Silver Inc,CA05466C1095,,3213655.0,63808257.0,0.9,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,WDO CN,Wesdome Gold Mines Ltd/Canada,CA95083R1001,,3327430.0,63226453.0,0.89,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,CGAU,Centerra Gold Inc,CA1520061021,,3868947.0,62715631.0,0.88,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,RRL AU,Regis Resources Ltd,AU000000RRL8,,13961067.0,61246537.0,0.86,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,AUGO,Aura Minerals Inc,VGG069731120,,961837.0,60951611.0,0.86,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,FSM,Fortuna Silver Mines Inc,CA3499421020,,6607970.0,56630303.0,0.8,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,ORLA,Orla Mining Ltd,CA68634K1066,,5615686.0,54752939.0,0.77,USD,Materials,Mexico,Stock,equity,web_csv
+2026-07-09,GDXJ,SA,Seabridge Gold Inc,CA8119271028,,2066845.0,54068665.0,0.76,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,EXK,Endeavour Silver Corp,CA29258Y1034,,6356106.0,52374313.0,0.74,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,TFPM,Triple Flag Precious Metals Corp,CA89679M1041,,1804555.0,51447863.0,0.73,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,WGX AU,Westgold Resources Ltd,AU000000WGX6,,15554716.0,50223074.0,0.71,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,BRMS IJ,Bumi Resources Minerals Tbk Pt,ID1000117609,,1802258300.0,49348084.0,0.7,IDR,Materials,Indonesia,Stock,equity,web_csv
+2026-07-09,GDXJ,SVM,Silvercorp Metals Inc,CA82835P1036,,5081413.0,48730751.0,0.69,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,HOC LN,Hochschild Mining Plc,GB00B1FW5029,,7309970.0,45408914.0,0.64,GBP,Materials,Peru,Stock,equity,web_csv
+2026-07-09,GDXJ,AAUC,Allied Gold Corp,CA01921D2041,,1853607.0,42929538.0,0.61,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,EMR AU,Emerald Resources Nl,AU000000EMR4,,11371080.0,42322363.0,0.6,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,PPTA,Perpetua Resources Corp,CA7142661031,,2120024.0,41976475.0,0.59,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,EMAS IJ,Merdeka Gold Resources Tbk Pt,ID1000211600,,135984100.0,41892995.0,0.59,IDR,Materials,Indonesia,Stock,equity,web_csv
+2026-07-09,GDXJ,3939 HK,Wanguo Gold Group Ltd,KYG9430L1150,,35201000.0,40497374.0,0.57,HKD,Materials,China,Stock,equity,web_csv
+2026-07-09,GDXJ,NG,Novagold Resources Inc,CA66987E2069,,6456790.0,39386419.0,0.56,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,SXGC CN,Southern Cross Gold Consolidated Ltd,CA8426851090,,5961155.0,37729095.0,0.53,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,PAF LN,Pan African Resources Plc,GB0004300496,,28359662.0,36336911.0,0.51,GBP,Materials,United Kingdom,Stock,equity,web_csv
+2026-07-09,GDXJ,PDI AU,Predictive Discovery Ltd,AU000000PDI8,,71959325.0,34481344.0,0.49,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,ABRA CN,Abrasilver Resource Corp,CA00379L3048,,3293421.0,32045352.0,0.45,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,WAF AU,West African Resources Ltd,AU000000WAF6,,16559907.0,31415684.0,0.44,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,SGD CN,Snowline Gold Corp,CA83342V1040,,3067929.0,30457408.0,0.43,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,HYMC,Hycroft Mining Holding Corp,US44862P2083,,1345124.0,29323703.0,0.41,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,USAS,Americas Gold & Silver Corp,CA03062D8035,,6496206.0,28973079.0,0.41,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,KOZAL TI,Koza Altin Isletmeleri As,TREKOAL00014,,23949739.0,27354901.0,0.39,TRY,Materials,Turkey,Stock,equity,web_csv
+2026-07-09,GDXJ,VZLA,Vizsla Silver Corp,CA92859G6085,,8233146.0,26016741.0,0.37,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,IAUX,I-80 Gold Corp,CA44955L1067,,18035760.0,25971494.0,0.37,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,ASM,Avino Silver & Gold Mines Ltd,CA0539061030,,4206394.0,25869323.0,0.36,USD,Materials,Mexico,Stock,equity,web_csv
+2026-07-09,GDXJ,OBM AU,Ora Banda Mining Ltd,AU0000050130,,34113196.0,25213015.0,0.36,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,GTWO CN,G2 Goldfields Inc,CA36256R1055,,3673592.0,25117027.0,0.35,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,GGD CN,Gogold Resources Inc,CA38045Y1025,,10805119.0,23710651.0,0.33,CAD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,RSG AU,Resolute Mining Ltd,AU000000RSG6,,37275184.0,23225342.0,0.33,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,MUX,Mcewen Mining Inc,US58039P3055,,1281897.0,23138241.0,0.33,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,CYL AU,Catalyst Metals Ltd,AU000000CYL6,,5854352.0,22506678.0,0.32,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,BGL AU,Bellevue Gold Ltd,AU0000019374,,24892287.0,22369990.0,0.32,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,ALK AU,Alkane Resources Ltd,AU000000ALK9,,23136094.0,21898217.0,0.31,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,ORE CN,Orezone Gold Corp,CA68616T1093,,12624074.0,21110641.0,0.3,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,DRD,Drdgold Ltd,US26152H3012,,972089.0,20734658.0,0.29,USD,Materials,South Africa,Stock,equity,web_csv
+2026-07-09,GDXJ,KCN AU,Kingsgate Consolidated Ltd,AU000000KCN1,,6237726.0,20693765.0,0.29,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,6693 HK,Chifeng Jilong Gold Mining Co Ltd,CNE100006T51,,5013200.0,17655201.0,0.25,HKD,Materials,China,Stock,equity,web_csv
+2026-07-09,GDXJ,DC,Dakota Gold Corp,US46655E1001,,3140620.0,14132790.0,0.2,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,340 HK,Tongguan Gold Group Ltd,BMG8919D1074,,59646000.0,14106093.0,0.2,HKD,Materials,China,Stock,equity,web_csv
+2026-07-09,GDXJ,CNL CN,Collective Mining Ltd,CA19425C1005,,1040080.0,13275743.0,0.19,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,ODV,Osisko Development Corp,CA68828E8099,,4942858.0,12258288.0,0.17,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,MTA,Metalla Royalty & Streaming Ltd,CA59124U6051,,1726127.0,12100150.0,0.17,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,CTGO,Contango Ore Inc,US21077F1003,,714469.0,11981645.0,0.17,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,KOZAA TI,Koza Anadolu Metal Madencilik Isletmele,TREKOZA00014,,4643583.0,11885266.0,0.17,TRY,Materials,Turkey,Stock,equity,web_csv
+2026-07-09,GDXJ,GROY,Gold Royalty Corp,CA38071H1064,,4490747.0,11765757.0,0.17,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,NFGC,New Found Gold Corp,CA64440N1033,,6894597.0,10479787.0,0.15,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,IDR,Idaho Strategic Resources Inc,US6458272050,,327404.0,10126606.0,0.14,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,BC8 AU,Black Cat Syndicate Ltd,AU000000BC88,,15807374.0,9870086.0,0.14,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,ITRG,Integra Resources Corp,CA45826T5098,,4287522.0,9689800.0,0.14,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,PNR AU,Pantoro Gold Ltd,AU000000PNR8,,5741948.0,7887821.0,0.11,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,SBM AU,St Barbara Ltd,AU000000SBM8,,24126391.0,7698183.0,0.11,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,LUNR CN,Lunr Royalties Corp,CA5504281067,,539423.0,7414331.0,0.1,CAD,,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,GAU,Galiano Gold Inc,CA36352H1001,,3779688.0,7181407.0,0.1,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,CMCL,Caledonia Mining Corp Plc,JE00BF0XVB15,,370899.0,7047081.0,0.1,USD,Materials,Jersey,Stock,equity,web_csv
+2026-07-09,GDXJ,APM CN,Andean Precious Metals Corp,CA03349X1015,,1493326.0,6111336.0,0.09,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,CNMC SP,Cnmc Goldmine Holdings Ltd,,,6667900.0,6052044.0,0.09,SGD,Materials,Singapore,Stock,equity,web_csv
+2026-07-09,GDXJ,DTR AU,Dateline Resources Ltd,AU000000DTR1,,71425952.0,5985128.0,0.08,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,AMI AU,Aurelia Metals Ltd,AU000000AMI1,,29978418.0,5623608.0,0.08,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,ASL AU,Andean Silver Ltd,AU0000343253,,3975608.0,5370585.0,0.08,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,VOXR,Vox Royalty Corp,CA92919F1036,,1151982.0,5241518.0,0.07,USD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,AZY AU,Antipa Minerals Ltd,AU000000AZY0,,12239199.0,5054520.0,0.07,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,USAU,Us Gold Corp,US90291C2017,,321189.0,4866013.0,0.07,USD,Materials,United States,Stock,equity,web_csv
+2026-07-09,GDXJ,GLDG,Goldmining Inc,CA38149E1016,,5340381.0,4831443.0,0.07,USD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,MEK AU,Meeka Metals Ltd,AU0000192726,,65394309.0,4768926.0,0.07,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,LUCA CN,Luca Mining Corp,CA54929M1068,,5963911.0,4334329.0,0.06,CAD,Materials,Mexico,Stock,equity,web_csv
+2026-07-09,GDXJ,FDR CN,Founders Metals Inc,CA3505901056,,1476409.0,4177386.0,0.06,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,8299 HK,Gt Gold Holdings Ltd,KYG4136P1303,,110664000.0,3891851.0,0.05,HKD,Materials,China,Stock,equity,web_csv
+2026-07-09,GDXJ,WRLG CN,West Red Lake Gold Mines Ltd,CA95556L1013,,8334742.0,3881411.0,0.05,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,ARCI IJ,Archi Indonesia Tbk Pt,ID1000161003,,63219100.0,3363525.0,0.05,IDR,Materials,Indonesia,Stock,equity,web_csv
+2026-07-09,GDXJ,VGC CN,Valor Gold Corp,CA9199211066,,986937.0,2966556.0,0.04,CAD,,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,FFX AU,Firefinch Ltd,AU0000114522,,54133739.0,2283690.0,0.03,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,PSAB IJ,J Resources Asia Pasific Tbk Pt,ID1000094709,,65960100.0,1496085.0,0.02,IDR,Materials,Indonesia,Stock,equity,web_csv
+2026-07-09,GDXJ,FMR CN,Future Mineral Resources Inc,CA3611551043,,168999.0,41736.0,0.0,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,NIX CN,Archer Exploration Corp,CA66860Q1028,,179304.0,22773.0,0.0,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,VGCX CN,Victoria Gold Corp/Vancouver,CA92625W5072,,1722275.0,1.0,0.0,CAD,Materials,Canada,Stock,equity,web_csv
+2026-07-09,GDXJ,ASM AU,Australian Strategic Materials Ltd,AU0000094153,,1.0,1.0,0.0,AUD,Materials,Australia,Stock,equity,web_csv
+2026-07-09,GDXJ,-USD CASH-,,CASH,,5924927.0,5924927.0,0.08,USD,,United States,Cash Bal,cash,web_csv
+2026-07-09,GDXJ,-TRY CASH-,,CASH,,0.0,0.0,0.0,TRY,,Turkey,Cash Bal,cash,web_csv
+2026-07-09,GDXJ,-MXN CASH-,,CASH,,-3639.0,-207.0,0.0,MXN,,Mexico,Cash Bal,cash,web_csv
+2026-07-09,GDXJ,-GBP CASH-,,CASH,,582.0,779.0,0.0,GBP,,United Kingdom,Cash Bal,cash,web_csv
+2026-07-09,GDXJ,-BRL CASH-,,CASH,,-672.0,-131.0,0.0,BRL,,Brazil,Cash Bal,cash,web_csv
+2026-07-09,GDXJ,-AUD CASH-,,CASH,,79.0,54.0,0.0,AUD,,Australia,Cash Bal,cash,web_csv
+2026-07-09,GDXJ,-CAD CASH-,,CASH,,-1668149.0,-1177033.0,-0.02,CAD,,Canada,Cash Bal,cash,web_csv
+2026-07-09,GDXJ,,Other/Cash,CASH,,0.0,-203104.0,-0.0,USD,,,Cash,cash,web_csv
