@@ -2001,3 +2001,72 @@ as_of_date,etf_ticker,constituent_ticker,constituent_name,isin,sedol,shares_held
 2026-07-29,SILJ,WRN,Western Copper & Gold Corp,,,8491832.0,17408255.6,0.55,USD,,,,equity,web_csv
 2026-07-29,SILJ,WVM CN,West Vault Mining Inc,,,18667.0,20116.87,0.0,USD,,,,equity,web_csv
 2026-07-29,SILJ,Cash&Other,Cash & Other,CASH,,-1634069.26,-1634069.26,-0.05,USD,,,,cash,web_csv
+2026-07-30,SILJ,AAG CN,Aftermath Silver Ltd,,,7797681.0,3486419.24,0.11,USD,,,,equity,web_csv
+2026-07-30,SILJ,ABRA CN,AbraSilver Resource Corp,CA00379L3048,,4298468.0,41183292.29,1.31,USD,,,,equity,web_csv
+2026-07-30,SILJ,AG,First Majestic Silver Corp,CA32076V1031,,19468383.0,296308789.26,9.45,USD,,,,equity,web_csv
+2026-07-30,SILJ,AGMR CN,Silver Mountain Resources Inc,,,1838281.0,4044335.62,0.13,USD,,,,equity,web_csv
+2026-07-30,SILJ,AGPXX,Invesco Government & Agency Portfolio 12/31/2031,,,9587517.11,9587517.11,0.31,USD,,,,equity,web_csv
+2026-07-30,SILJ,APM CN,Andean Precious Metals Corp,CA03349X1015,,2177616.0,8700882.21,0.28,USD,,,,equity,web_csv
+2026-07-30,SILJ,ARD AU,Argent Minerals Ltd,,,34207940.0,521119.47,0.02,USD,,,,equity,web_csv
+2026-07-30,SILJ,ASM,Avino Silver & Gold Mines Ltd,CA0539061030,,8827129.0,46518969.83,1.48,USD,,,,equity,web_csv
+2026-07-30,SILJ,AYA CN,Aya Gold & Silver Inc,CA05466C1095,,5804663.0,111310453.33,3.55,USD,,,,equity,web_csv
+2026-07-30,SILJ,BMC AU,BMC Minerals Ltd,,,1339923.0,2421631.43,0.08,USD,,,,equity,web_csv
+2026-07-30,SILJ,BNKR CN,Bunker Hill Mining Corp,,,421140.0,1288182.39,0.04,USD,,,,equity,web_csv
+2026-07-30,SILJ,BOL SS,Boliden AB,SE0020050417,,3323936.0,158312775.91,5.05,USD,,,,equity,web_csv
+2026-07-30,SILJ,BVN,Cia de Minas Buenaventura SAA,US2044481040,,5311455.0,160512170.1,5.12,USD,,,,equity,web_csv
+2026-07-30,SILJ,CAD,CANADIAN DOLLAR,,,150976.71,107147.87,0.0,USD,,,,fx,web_csv
+2026-07-30,SILJ,CDE,COEUR MINING INC.,US1921085049,,6726387.0,98407041.81,3.14,USD,,,,equity,web_csv
+2026-07-30,SILJ,CKG CN,Chesapeake Gold Corp,,,1039567.0,2250224.87,0.07,USD,,,,equity,web_csv
+2026-07-30,SILJ,CUU CN,Copper Fox Metals Inc,,,3346222.0,1353640.07,0.04,USD,,,,equity,web_csv
+2026-07-30,SILJ,EXK,Endeavour Silver Corp,CA29258Y1034,,17706341.0,133859937.96,4.27,USD,,,,equity,web_csv
+2026-07-30,SILJ,FF CN,First Mining Gold Corp,,,31213454.0,13512797.23,0.43,USD,,,,equity,web_csv
+2026-07-30,SILJ,FNV,Franco-Nevada Corp,CA3518581051,,303700.0,65104169.0,2.08,USD,,,,fx,web_csv
+2026-07-30,SILJ,FPC CN,Falco Resources Ltd,,,3825614.0,1221763.81,0.04,USD,,,,equity,web_csv
+2026-07-30,SILJ,FRES LN,Fresnillo PLC,GB00B2QPKJ12,,725096.0,23905534.34,0.76,USD,,,,equity,web_csv
+2026-07-30,SILJ,GBP,BRITISH POUNDS,,,-2371.74,-3151.69,0.0,USD,,,,fx,web_csv
+2026-07-30,SILJ,GGD CN,GoGold Resources Inc,CA38045Y1025,,8355456.0,17196566.76,0.55,USD,,,,equity,web_csv
+2026-07-30,SILJ,GSVR CN,Guanajuato Silver Co Ltd,,,14992977.0,4681813.9,0.15,USD,,,,equity,web_csv
+2026-07-30,SILJ,HL,Hecla Mining Co,US4227041062,,21294204.0,301312986.6,9.61,USD,,,,equity,web_csv
+2026-07-30,SILJ,HOC LN,Hochschild Mining PLC,GB00B1FW5029,,6140013.0,35606576.13,1.14,USD,,,,equity,web_csv
+2026-07-30,SILJ,HYMC,Hycroft Mining Holding Corp,US44862P2083,,6296346.0,120637989.36,3.85,USD,,,,equity,web_csv
+2026-07-30,SILJ,IAUX,i-80 Gold Corp,CA44955L1067,,18719318.0,23773533.86,0.76,USD,,,,equity,web_csv
+2026-07-30,SILJ,IPT CN,IMPACT Silver Corp,,,6048163.0,1158939.72,0.04,USD,,,,equity,web_csv
+2026-07-30,SILJ,KGH PW,KGHM Polska Miedz SA,PLKGHM000017,,2003394.0,155055420.87,4.94,USD,,,,equity,web_csv
+2026-07-30,SILJ,MFRISCOA MF,Minera Frisco SAB de CV,,,209458.0,163741.77,0.01,USD,,,,equity,web_csv
+2026-07-30,SILJ,MKR AU,Manuka Resources Ltd,,,63322540.0,3507809.58,0.11,USD,,,,equity,web_csv
+2026-07-30,SILJ,MSV CN,Minco Silver Corp,,,160380.0,100162.8,0.0,USD,,,,equity,web_csv
+2026-07-30,SILJ,MUX,McEwen Inc,US58039P3055,,1315243.0,22030320.25,0.7,USD,,,,equity,web_csv
+2026-07-30,SILJ,NEWP,New Pacific Metals Corp,CA64782A1075,,3924892.0,17151778.04,0.55,USD,,,,equity,web_csv
+2026-07-30,SILJ,OM CN,Osisko Metals Inc,CA6882741094,,16268883.0,16857151.4,0.54,USD,,,,equity,web_csv
+2026-07-30,SILJ,OR,OR Royalties Inc,CA68390D1069,,3254323.0,95969985.27,3.06,USD,,,,equity,web_csv
+2026-07-30,SILJ,PAAS,Pan American Silver Corp,CA6979001089,,2196479.0,93460181.45,2.98,USD,,,,equity,web_csv
+2026-07-30,SILJ,PE&OLES* MM,Industrias Penoles SAB de CV,MXP554091415,,402552.0,18100713.35,0.58,USD,,,,equity,web_csv
+2026-07-30,SILJ,PEN,PERUVIAN SOL,,,-1022.71,-300.68,0.0,USD,,,,fx,web_csv
+2026-07-30,SILJ,PML CN,Panoro Minerals Ltd,,,5302359.0,6058548.66,0.19,USD,,,,equity,web_csv
+2026-07-30,SILJ,PPTA,Perpetua Resources Corp,CA7142661031,,4905692.0,84672243.92,2.7,USD,,,,equity,web_csv
+2026-07-30,SILJ,PZG,Paramount Gold Nevada Corp,,,4567485.0,4841534.1,0.15,USD,,,,equity,web_csv
+2026-07-30,SILJ,RGLD,Royal Gold Inc,US7802871084,,193119.0,37750902.12,1.2,USD,,,,equity,web_csv
+2026-07-30,SILJ,SA,Seabridge Gold Inc,CA8119271028,,4246491.0,107223897.75,3.42,USD,,,,equity,web_csv
+2026-07-30,SILJ,SCZ CN,Santacruz Silver Mining Ltd,,,1821007.0,11334041.65,0.36,USD,,,,equity,web_csv
+2026-07-30,SILJ,SKE CN,Skeena Resources Ltd,CA83056P7157,,2833350.0,72449948.9,2.31,USD,,,,equity,web_csv
+2026-07-30,SILJ,SM CN,Sierra Madre Gold And Silver Ltd,,,2070200.0,1763060.22,0.06,USD,,,,equity,web_csv
+2026-07-30,SILJ,SOSI1 FH,Sotkamo Silver AB,,,14359677.0,5695690.33,0.18,USD,,,,equity,web_csv
+2026-07-30,SILJ,SSRM,SSR Mining Inc,CA7847301032,,5850427.0,146319179.27,4.67,USD,,,,equity,web_csv
+2026-07-30,SILJ,SVL AU,Silver Mines Ltd,,,75772229.0,7083232.98,0.23,USD,,,,equity,web_csv
+2026-07-30,SILJ,SVM,Silvercorp Metals Inc,CA82835P1036,,10759593.0,98235084.09,3.13,USD,,,,equity,web_csv
+2026-07-30,SILJ,SVRS CN,Silver Storm Mining Ltd,,,17465650.0,4958134.91,0.16,USD,,,,equity,web_csv
+2026-07-30,SILJ,TFPM,Triple Flag Precious Metals Corp,CA89679M1041,,2958518.0,84909466.6,2.71,USD,,,,equity,web_csv
+2026-07-30,SILJ,TLG CN,Troilus Mining Corp,,,13412012.0,15800674.16,0.5,USD,,,,equity,web_csv
+2026-07-30,SILJ,TMQ,Trilogy Metals Inc,CA89621C1059,,8404785.0,24541972.2,0.78,USD,,,,equity,web_csv
+2026-07-30,SILJ,TUD CN,Tudor Gold Corp,,,6568082.0,3822310.95,0.12,USD,,,,equity,web_csv
+2026-07-30,SILJ,TUO CN,Teuton Resources Corp,,,46491.0,52791.31,0.0,USD,,,,equity,web_csv
+2026-07-30,SILJ,TV CN,Trevali Mining Corp,,,967999.0,0.0,0.0,USD,,,,derivative,web_csv
+2026-07-30,SILJ,USA CN,Americas Gold & Silver Corp,CA03062D8035,,15057511.0,55034371.85,1.75,USD,,,,equity,web_csv
+2026-07-30,SILJ,VGC CN,Valor Gold Corp,CA9199211066,,2169881.56,5266665.44,0.17,USD,,,,equity,web_csv
+2026-07-30,SILJ,VOLCABC1 PE,Volcan Cia Minera SAA,,,14531982.0,3396620.61,0.11,USD,,,,equity,web_csv
+2026-07-30,SILJ,VZLA,Vizsla Silver Corp,CA92859G6085,,25769621.0,80401217.52,2.56,USD,,,,equity,web_csv
+2026-07-30,SILJ,WAM CN,Alaska Silver Corp,,,1196915.0,535152.37,0.02,USD,,,,equity,web_csv
+2026-07-30,SILJ,WPM,Wheaton Precious Metals Corp,CA9628791027,,1351918.0,147980944.28,4.72,USD,,,,equity,web_csv
+2026-07-30,SILJ,WRN,Western Copper & Gold Corp,,,8491832.0,17153500.64,0.55,USD,,,,equity,web_csv
+2026-07-30,SILJ,WVM CN,West Vault Mining Inc,,,18667.0,20136.86,0.0,USD,,,,equity,web_csv
+2026-07-30,SILJ,Cash&Other,Cash & Other,CASH,,-1686383.18,-1686383.18,-0.05,USD,,,,cash,web_csv
