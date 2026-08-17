@@ -9,11 +9,9 @@ on:
     - cron: "0 21 * * 1-5"
   workflow_dispatch: {}   # allow manual runs from the Actions tab
 
-# Let the build commit the day's snapshots back, and publish to Pages.
+# Let the build commit the day's snapshots back.
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 # Never let two daily runs overlap.
 concurrency:
@@ -71,17 +69,45 @@ jobs:
             done
           fi
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
+      - name: Minify data.json for blob upload
+        # build.py writes data.json with indent=2 (~1.2MB). Minified it is ~780KB.
+        run: |
+          python -c "import json,os; json.dump(json.load(open('site/data.json')), open(os.environ['RUNNER_TEMP'] + '/etf_latest.json', 'w'), separators=(',', ':'))"
+          ls -l "$RUNNER_TEMP/etf_latest.json"
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
-      - id: deploy
-        uses: actions/deploy-pages@v4
+      - name: Publish payload to Azure Blob
+        # Uploads the payload for the Terra dashboard's ETF Flows tab.
+        #
+        # SECURITY: this repo is PUBLIC, so the credential here is a *write-only
+        # SAS scoped to one container* (etf) — not an account connection string.
+        # It cannot read or list, and it cannot reach the container holding fund
+        # data. Rotate it by reissuing the SAS; nothing else needs to change.
+        #
+        # ETF_BLOB_SAS_URL is the full destination URL including the SAS query
+        # string, e.g.
+        #   https://<account>.blob.core.windows.net/etf/etf_latest.json?sv=...&sig=...
+        # Keeping the whole URL in the secret means the account name never
+        # appears in this public repo either.
+        #
+        # Sends only if the secret is set; otherwise logs a notice and exits 0,
+        # mirroring the defensive style of the Telegram step above.
+        env:
+          ETF_BLOB_SAS_URL: ${{ secrets.ETF_BLOB_SAS_URL }}
+        run: |
+          if [ -z "$ETF_BLOB_SAS_URL" ]; then
+            echo "ETF_BLOB_SAS_URL not set — skipping blob publish."
+            exit 0
+          fi
+          # -sS keeps the SAS out of the log; the URL is never echoed.
+          code=$(curl -sS -o "$RUNNER_TEMP/blob_resp.txt" -w '%{http_code}' \
+            -X PUT \
+            -H "x-ms-blob-type: BlockBlob" \
+            -H "Content-Type: application/json" \
+            --data-binary @"$RUNNER_TEMP/etf_latest.json" \
+            "$ETF_BLOB_SAS_URL")
+          if [ "$code" != "201" ]; then
+            echo "Blob upload failed (HTTP $code):"
+            cat "$RUNNER_TEMP/blob_resp.txt" || true
+            exit 1
+          fi
+          echo "Published etf_latest.json (HTTP $code)."
