@@ -9302,3 +9302,120 @@ as_of_date,etf_ticker,constituent_ticker,constituent_name,isin,sedol,shares_held
 2026-10-16,IS0E,AUD,AUD/USD,,,-652663.0,-2913.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
 2026-10-16,IS0E,HKD,HKD CASH,CASH,,-2697889.0,-343772.0,0.0,,Cash and/or Derivatives,Hong Kong,Cash,cash,web_csv
 2026-10-16,IS0E,CAD,CAD CASH,CASH,,-6474968.0,-4579347.0,0.0,,Cash and/or Derivatives,Canada,Cash,cash,web_csv
+2026-10-19,IS0E,AEM,AGNICO EAGLE MINES,CA0084741085,,2388678.0,448628328.0,11.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,NEM,NEWMONT,US6516391066,,3768090.0,444672301.0,10.0,,Materials,United States,Equity,equity,web_csv
+2026-10-19,IS0E,ABX,BARRICK MINING,CA06849F1080,,8542831.0,346308865.0,8.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,WPM,WHEATON PRECIOUS METALS,CA9628791027,,2357281.0,311989875.0,7.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,FNV,FRANCO NEVADA,CA3518581051,,1001096.0,242094647.0,6.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,AU,ANGLOGOLD ASHANTI PLC,GB00BRXH2664,,2231383.0,204216172.0,5.0,,Materials,South Africa,Equity,equity,web_csv
+2026-10-19,IS0E,GFI,GOLD FIELDS ADR REPRESENTING,US38059T1060,,4645559.0,170352649.0,4.0,,Materials,South Africa,Equity,equity,web_csv
+2026-10-19,IS0E,K,KINROSS GOLD,CA4969024047,,6158667.0,145984513.0,3.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,NST,NORTHERN STAR RESOURCES LTD,AU000000NST8,,7390316.0,129250626.0,3.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,2899,ZIJIN MINING GROUP LTD H,CNE100000502,,30978000.0,126150822.0,3.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,RGLD,ROYAL GOLD,US7802871084,,440209.0,103849705.0,2.0,,Materials,United States,Equity,equity,web_csv
+2026-10-19,IS0E,PAAS,PAN AMERICAN SILVER,CA6979001089,,2164786.0,96420971.0,2.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,EVN,EVOLUTION MINING,AU000000EVN4,,10542733.0,92118284.0,2.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,CDE,COEUR MINING,US1921085049,,5333208.0,81758079.0,2.0,,Materials,United States,Equity,equity,web_csv
+2026-10-19,IS0E,AGI,ALAMOS GOLD CLASS A,CA0115321089,,2173518.0,69614895.0,2.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,EQX,EQUINOX GOLD,CA29446Y5020,,6056340.0,67266400.0,2.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,EDV,ENDEAVOUR MINING,GB00BL6K5J42,,1115672.0,61526820.0,1.0,,Materials,United Kingdom,Equity,equity,web_csv
+2026-10-19,IS0E,IMG,IAMGOLD CORP,CA4509131088,,2986024.0,53191301.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,ELD,ELDORADO GOLD,CA2849025093,,1357432.0,47811895.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,HMY,HARMONY GOLD MINING ADR REPRESENTI,US4132163001,,2848517.0,47655689.0,1.0,,Materials,South Africa,Equity,equity,web_csv
+2026-10-19,IS0E,DPM,DPM METALS,CA26139R1091,,1135152.0,46910969.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,GMIN,G MINING VENTURES CORP,CA36270K1021,,1201442.0,39239460.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,2259,ZIJIN GOLD INTERNATIONAL LTD,HK0001200002,,2074900.0,39233857.0,1.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,LUG,LUNDIN GOLD,CA5503711080,,528980.0,34256716.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,BTO,B2GOLD,CA11777Q2099,,6435477.0,33614925.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,2099,CHINA GOLD INTERNATIONAL RESOURCES,CA16890P1036,,1232600.0,33609796.0,1.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,OR,OR ROYALTIES INC,CA68390D1069,,965240.0,33593818.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,SSRM,SSR MINING,CA7847301032,,1056332.0,33293144.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,OGC,OCEANAGOLD CORPORATION CORP,CA6752224007,,1151789.0,30718733.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,GMD,GENESIS MINERALS,AU000000GMD9,,6076852.0,30517073.0,1.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,PRU,PERSEUS MINING LTD,AU000000PRU3,,6874455.0,29480983.0,1.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,TXG,TOREX GOLD RESOURCES,CA8910546032,,483911.0,25279932.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,RMS,RAMELIUS RESOURCES,AU000000RMS4,,9785231.0,24740870.0,1.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,KNT,K92 MINING,CA4991131083,,1274222.0,24660611.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,VAU,VAULT MINERALS,AU0000355588,,5394721.0,22456940.0,1.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,CG,CENTERRA GOLD,CA1520061021,,1016025.0,22295513.0,1.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,CMM,CAPRICORN METALS LTD DEF,AU000000CMM9,,2224500.0,21969347.0,1.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,SKE,SKEENA RESOURCES,CA83056P7157,,644671.0,20313965.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,1818,ZHAOJIN MINING INDUSTRY LTD H,CNE1000004R6,,8588500.0,19905815.0,0.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,RRL,REGIS RESOURCES,AU000000RRL8,,3953393.0,19273506.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,MAU,MONTAGE GOLD,CA61178L1013,,1637109.0,18891730.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,ARIS,ARIS MINING,CA04040Y1097,,1073906.0,18672650.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,WGX,WESTGOLD RESOURCES,AU000000WGX6,,4942458.0,17294820.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,PAF,PAN AFRICAN RESOURCES PLC,GB0004300496,,10849018.0,16976611.0,0.0,,Materials,United Kingdom,Equity,equity,web_csv
+2026-10-19,IS0E,WDO,WESDOME GOLD MINES LTD,CA95083R1001,,763503.0,16846321.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,FVI,FORTUNA MINING CORP,CA3499421020,,1533524.0,16238017.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,AUGO,AURA MINERALS INC,VGG069731120,,177740.0,15290972.0,0.0,,Materials,Brazil,Equity,equity,web_csv
+2026-10-19,IS0E,WAF,WEST AFRICAN RESOURCES LTD,AU000000WAF6,,5977180.0,14945646.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,EMR,EMERALD RESOURCES,AU000000EMR4,,3014976.0,13603533.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,PDI,PDI GOLD LIMITED LTD,AU000000PDI8,,4244614.0,12747998.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,1787,SHANDONG GOLD MINING LTD H,CNE1000036N7,,5135760.0,12282844.0,0.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,SEA,SEABRIDGE GOLD,CA8119271028,,470324.0,12233331.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,AAUC,ALLIED GOLD,CA01921D2041,,548002.0,11511912.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,TFPM,TRIPLE FLAG PRECIOUS METALS,CA89679M1041,,363493.0,11149475.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,HOC,HOCHSCHILD MINING PLC,GB00B1FW5029,,1653096.0,11073598.0,0.0,,Materials,United Kingdom,Equity,equity,web_csv
+2026-10-19,IS0E,NG,NOVAGOLD RESOURCES INC,CA66987E2069,,1590479.0,10369923.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,5857,ARE HOLDINGS,JP3116700000,,448800.0,9573947.0,0.0,,Materials,Japan,Equity,equity,web_csv
+2026-10-19,IS0E,RSG,RESOLUTE MINING,AU000000RSG6,,11038387.0,8673482.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,3330,LINGBAO GOLD GROUP LTD H,CNE1000001H3,,3647500.0,8518982.0,0.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,USD,USD CASH,CASH,,8504990.0,8504990.0,0.0,,Cash and/or Derivatives,United States,Cash,cash,web_csv
+2026-10-19,IS0E,PPTA,PERPETUA RESOURCES,CA7142661031,,433992.0,8168247.0,0.0,,Materials,United States,Equity,equity,web_csv
+2026-10-19,IS0E,SXGC,SOUTHERN CROSS GOLD CONSOLIDATED L,CA8426851090,,1105861.0,7887515.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,BGL,BELLEVUE GOLD,AU0000019374,,7687894.0,7678542.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,OBM,ORA BANDA MINING LTD,AU0000050130,,7911868.0,7625941.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,ALK,ALKANE RESOURCES LTD,AU000000ALK9,,6082817.0,7477437.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,IAUX,I  GOLD CORP,CA44955L1067,,3952096.0,5928144.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,DRD,DRDGOLD ADR REPRESENTING  LTD,US26152H3012,,224874.0,5576875.0,0.0,,Materials,South Africa,Equity,equity,web_csv
+2026-10-19,IS0E,CYL,CATALYST METALS LTD,AU000000CYL6,,1380210.0,5350243.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,ORE,OREZONE GOLD,CA68616T1093,,2487840.0,5279189.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,6693,CHIFENG JILONG GOLD MINING CLASS H,CNE100006T51,,1039800.0,4634464.0,0.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,KCN,KINGSGATE CONSOLIDATED,AU000000KCN1,,1396819.0,4517066.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,MUX,MCEWEN INC,US58039P3055,,275578.0,4423027.0,0.0,,Materials,United States,Equity,equity,web_csv
+2026-10-19,IS0E,340,TONGGUAN GOLD GROUP LTD,BMG8919D1074,,12296000.0,3979491.0,0.0,,Materials,China,Equity,equity,web_csv
+2026-10-19,IS0E,ICSUAGD,BLK ICS USD LIQ AGENCY DIS,IE00B50QMP13,,3874814.0,3874814.0,0.0,,Cash and/or Derivatives,Ireland,Money Market,cash,web_csv
+2026-10-19,IS0E,PNR,PANTORO GOLD LTD,AU000000PNR8,,1926036.0,3874291.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,SBM,ST BARBARA,AU000000SBM8,,6326717.0,3645589.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,DC,DAKOTA GOLD CORP,US46655E1001,,645722.0,3564385.0,0.0,,Materials,United States,Equity,equity,web_csv
+2026-10-19,IS0E,OGG,OSISKO GOLD GROUP INC,CA68827X1050,,1114827.0,2865105.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,GROY,GOLD ROYALTY,CA38071H1064,,965375.0,2818895.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,ITRG,INTEGRA RESOURCES CORP,CA45826T5098,,1056352.0,2503554.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,CTGO,CONTANGO SILVER AND GOLD INC,US21077F1003,,156026.0,2349752.0,0.0,,Materials,United States,Equity,equity,web_csv
+2026-10-19,IS0E,BC8,BLACK CAT SYNDICATE,AU000000BC88,,3404099.0,1723755.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,BZFUT,CASH COLLATERAL CAD BZFUT,CASH,,893000.0,633760.0,0.0,,Cash and/or Derivatives,Canada,Cash Collateral and Margins,cash,web_csv
+2026-10-19,IS0E,VGC,VALOR GOLD CORP,CA9199211066,,229763.0,406025.0,0.0,,Materials,Canada,Equity,equity,web_csv
+2026-10-19,IS0E,JPY,JPY CASH,CASH,,38752318.0,244579.0,0.0,,Cash and/or Derivatives,Japan,Cash,cash,web_csv
+2026-10-19,IS0E,ZAR,ZAR CASH,CASH,,2177482.0,132460.0,0.0,,Cash and/or Derivatives,South Africa,Cash,cash,web_csv
+2026-10-19,IS0E,EUR,EUR CASH,CASH,,8477.0,9509.0,0.0,,Cash and/or Derivatives,European Union,Cash,cash,web_csv
+2026-10-19,IS0E,AUD,AUD/USD,,,1270385.0,2358.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,AUD,AUD/USD,,,635193.0,1179.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,RUB,RUB CASH,CASH,,0.0,0.0,0.0,,Cash and/or Derivatives,Russian Federation,Cash,cash,web_csv
+2026-10-19,IS0E,PLZL,PUBLIC JOINT STOCK POLYUS GDR,US73181M1172,,1.0,0.0,0.0,,Materials,Russian Federation,Equity,equity,web_csv
+2026-10-19,IS0E,PLZL,POLYUS,RU000A0JNAA8,,2397610.0,29.0,0.0,,Materials,Russian Federation,Equity,equity,web_csv
+2026-10-19,IS0E,FFX,FIREFINCH LTD,AU0000114522,,8758575.0,61.0,0.0,,Materials,Australia,Equity,equity,web_csv
+2026-10-19,IS0E,JPY,JPY/USD,,,2604000.0,-55.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,HKD,HKD/USD,,,1862340.0,-51.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,JPY,JPY/USD,,,1302000.0,-28.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,CAD,CAD/USD,,,6222212.0,-25.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,HKD,HKD/USD,,,3649630.0,-23.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,CAD,CAD/USD,,,3111106.0,-13.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,AUD,AUD/USD,,,-1703766.0,-12.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,HKD,HKD/USD,,,1824815.0,-11.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,AUD,AUD/USD,,,1320487.0,-9.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,AUD,AUD/USD,,,660244.0,-5.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,HKD,HKD/USD,,,3762770.0,-3.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,GBP,GBP/USD,,,128425.0,-2.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,HKD,HKD/USD,,,1881385.0,-1.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,GBP,GBP/USD,,,64212.0,-1.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,JPY,JPY/USD,,,2696000.0,0.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,JPY,JPY/USD,,,1348000.0,0.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,HKD,HKD/USD,,,-1862340.0,46.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,PTZ6,S&P/TSE 60 INDEX DEC 26,,,21.0,0.0,0.0,,Cash and/or Derivatives,,Futures,derivative,web_csv
+2026-10-19,IS0E,GBP,GBP/USD,,,124211.0,-443.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,GBP,GBP/USD,,,62105.0,-222.0,0.0,,Cash and/or Derivatives,United States,FX,fx,web_csv
+2026-10-19,IS0E,GBP,GBP CASH,CASH,,-117808.0,-156891.0,0.0,,Cash and/or Derivatives,United Kingdom,Cash,cash,web_csv
+2026-10-19,IS0E,HKD,HKD CASH,CASH,,-2697889.0,-343759.0,0.0,,Cash and/or Derivatives,Hong Kong,Cash,cash,web_csv
+2026-10-19,IS0E,AUD,AUD CASH,CASH,,-1199478.0,-837775.0,0.0,,Cash and/or Derivatives,Australia,Cash,cash,web_csv
+2026-10-19,IS0E,CAD,CAD CASH,CASH,,-4965013.0,-3523660.0,0.0,,Cash and/or Derivatives,Canada,Cash,cash,web_csv
