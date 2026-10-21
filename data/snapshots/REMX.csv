@@ -3264,3 +3264,41 @@ as_of_date,etf_ticker,constituent_ticker,constituent_name,isin,sedol,shares_held
 2026-10-19,REMX,-AUD CASH-,,CASH,,2.0,1.0,0.0,AUD,,Australia,Cash Bal,cash,web_csv
 2026-10-19,REMX,-CNY CASH-,,CASH,,-31313656.0,-4685849.0,-0.31,CNY,,China,Cash Bal,cash,web_csv
 2026-10-19,REMX,,Other/Cash,CASH,,0.0,-318516.0,-0.02,USD,,,Cash,cash,web_csv
+2026-10-20,REMX,SQM,Sociedad Quimica Y Minera De Chile Sa,US8336351056,,2317857.0,139187313.0,8.96,USD,Materials,Chile,Stock,equity,web_csv
+2026-10-20,REMX,ALB,Albemarle Corp,US0126531013,,1389137.0,133037650.0,8.56,USD,Materials,United States,Stock,equity,web_csv
+2026-10-20,REMX,600111 C1,China Northern Rare Earth Group High-Te,CNE000000T18,,20662828.0,110220849.0,7.09,CNY,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,MP,Mp Materials Corp,US5533681012,,2617148.0,102199629.0,6.58,USD,Materials,United States,Stock,equity,web_csv
+2026-10-20,REMX,LYC AU,Lynas Rare Earths Ltd,AU000000LYC6,,11727535.0,94204672.0,6.06,AUD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,PLS AU,Pilbara Minerals Ltd,AU000000PLS0,,42248013.0,87297737.0,5.62,AUD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,601958 C1,Jinduicheng Molybdenum Co Ltd,CNE1000009Y1,,30645070.0,82471219.0,5.31,CNY,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,600549 C1,Xiamen Tungsten Co Ltd,CNE000001D15,,12950909.0,72040812.0,4.64,CNY,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,7610 TT,Lianyou Metals Co Ltd,TW0007610B14,,1473868.0,64884413.0,4.17,TWD,Materials,Taiwan Region,Stock,equity,web_csv
+2026-10-20,REMX,ILU AU,Iluka Resources Ltd,AU000000ILU1,,16055539.0,58809060.0,3.78,AUD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,600392 C1,Shenghe Resources Holding Co Ltd,CNE000001DZ5,,22696852.0,56725068.0,3.65,CNY,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,ALM,Almonty Industries Inc,CA0203987072,,5963778.0,53077624.0,3.41,USD,Materials,Canada,Stock,equity,web_csv
+2026-10-20,REMX,603067 C1,Hubei Zhenhua Chemical Co Ltd,CNE100002FN3,,9782969.0,50274368.0,3.23,CNY,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,1772 HK,Ganfeng Lithium Group Co Ltd,CNE1000031W9,,15896640.0,47587362.0,3.06,HKD,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,LTR AU,Liontown Resources Ltd,AU000000LTR4,,93972592.0,46127425.0,2.97,AUD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,603663 C1,Sanxiang Advanced Materials Co Ltd,CNE1000030V3,,7680863.0,41168880.0,2.65,CNY,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,AMG NA,Amg Critical Materials Nv,NL0000888691,,1442653.0,39535248.0,2.54,EUR,Materials,Netherlands,Stock,equity,web_csv
+2026-10-20,REMX,EQR AU,Eq Resources Ltd,AU0000122749,,174484200.0,33200061.0,2.14,AUD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,LAC,Lithium Americas Corp,CA53681J1030,,13200128.0,28248274.0,1.82,USD,Materials,Canada,Stock,equity,web_csv
+2026-10-20,REMX,LAR,Lithium Argentina Ag,CH1403212751,,5970494.0,26628403.0,1.71,USD,Materials,Canada,Stock,equity,web_csv
+2026-10-20,REMX,600456 C1,Baoji Titanium Industry Co Ltd,CNE000001B41,,6186673.0,22618532.0,1.46,CNY,Materials,China,Stock,equity,web_csv
+2026-10-20,REMX,SGML,Sigma Lithium Corp,CA8265991023,,2534384.0,21440889.0,1.38,USD,Materials,Brazil,Stock,equity,web_csv
+2026-10-20,REMX,CXO AU,Core Lithium Ltd,AU000000CXO2,,126127949.0,18699481.0,1.2,AUD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,ERA FP,Eramet Sa,FR0000131757,,460646.0,18662867.0,1.2,EUR,Materials,France,Stock,equity,web_csv
+2026-10-20,REMX,ELVR,Elevra Lithium Ltd,US8057001013,,638416.0,17198927.0,1.11,USD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,IPX,Iperionx Ltd,US44916E1001,,1113544.0,15467126.0,1.0,USD,Materials,United States,Stock,equity,web_csv
+2026-10-20,REMX,UAMY,United States Antimony Corp,US9115491030,,4924920.0,15365750.0,0.99,USD,Materials,United States,Stock,equity,web_csv
+2026-10-20,REMX,TROX,Tronox Holdings Plc,GB00BJT16S69,,4425248.0,15001591.0,0.97,USD,Materials,United States,Stock,equity,web_csv
+2026-10-20,REMX,SLI,Standard Lithium Ltd,CA8536061010,,9281809.0,13922714.0,0.9,USD,Materials,Canada,Stock,equity,web_csv
+2026-10-20,REMX,VUL AU,Vulcan Energy Resources Ltd,AU0000066086,,14921523.0,11958092.0,0.77,AUD,Materials,Germany,Stock,equity,web_csv
+2026-10-20,REMX,3858 HK,Jiaxin International Resources Investme,HK0001188587,,2366800.0,11722019.0,0.75,HKD,Materials,Kazakhstan,Stock,equity,web_csv
+2026-10-20,REMX,AVZ AU,Avz Minerals Ltd,AU000000AVZ6,,52906510.0,1372334.0,0.09,AUD,Materials,Australia,Stock,equity,web_csv
+2026-10-20,REMX,-TWD CASH-,,CASH,,70904515.0,2171322.0,0.14,TWD,,Taiwan Region,Cash Bal,cash,web_csv
+2026-10-20,REMX,-USD CASH-,,CASH,,1574680.0,1574680.0,0.1,USD,,United States,Cash Bal,cash,web_csv
+2026-10-20,REMX,-CNY CASH-,,CASH,,9834720.0,1473289.0,0.09,CNY,,China,Cash Bal,cash,web_csv
+2026-10-20,REMX,-HKD CASH-,,CASH,,0.0,0.0,0.0,HKD,,China,Cash Bal,cash,web_csv
+2026-10-20,REMX,-AUD CASH-,,CASH,,2.0,1.0,0.0,AUD,,Australia,Cash Bal,cash,web_csv
+2026-10-20,REMX,,Other/Cash,CASH,,0.0,-1286261.0,-0.08,USD,,,Cash,cash,web_csv
