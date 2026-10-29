@@ -3930,3 +3930,41 @@ as_of_date,etf_ticker,constituent_ticker,constituent_name,isin,sedol,shares_held
 2026-10-27,URNM-ASX,"Total weights may not add up to 100% due to rounding or immateriality. Holdings, weights and values are subject to change.",,,,,,,AUD,,,,derivative,web_csv
 2026-10-27,URNM-ASX,"Betashares makes no representation or warranty of any kind, either express or implied, with respect to the holdings data,",,,,,,,AUD,,,,derivative,web_csv
 2026-10-27,URNM-ASX,"its timeliness, the information's use or any other matter.",,,,,,,AUD,,,,derivative,web_csv
+2026-10-28,URNM-ASX,CCJ UN,CAMECO CORP,,,401735.0,47836191.45,15.43331129,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,U-U CT,SPROTT PHYSICAL URANIUM TRUST,,,1712948.0,47101302.66,15.19621534,AUD,,,Equities,equity,web_csv
+2026-10-28,URNM-ASX,NXE UN,NEXGEN ENERGY LTD,,,3586820.0,45542069.02,14.69316237,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,KAP LI,NAC KAZATOMPROM JSC,,,369566.0,34536916.35,11.14258817,AUD,Energy,Kazakhstan,Equities,equity,web_csv
+2026-10-28,URNM-ASX,UEC UA,URANIUM ENERGY CORP,,,2768483.0,32792427.52,10.57976663,AUD,Energy,United States,Equities,equity,web_csv
+2026-10-28,URNM-ASX,PDN AT,PALADIN ENERGY LTD,,,2515942.0,19800463.54,6.38819079,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,UUUU UA,ENERGY FUELS INC/CANADA,,,1485259.0,17698228.96,5.70995032,AUD,Energy,United States,Equities,equity,web_csv
+2026-10-28,URNM-ASX,DNN UA,DENISON MINES CORP,,,5121606.0,17457540.69,5.63229747,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,YCA LN,YELLOW CAKE PLC,,,1249482.0,12751985.03,4.11415183,AUD,Industrials,Britain,Equities,equity,web_csv
+2026-10-28,URNM-ASX,1164 HK,CGN MINING CO LTD,,,16806339.0,6664472.52,2.15014774,AUD,Energy,China,Equities,equity,web_csv
+2026-10-28,URNM-ASX,BMN AT,BANNERMAN ENERGY LTD,,,1236918.0,4527119.88,1.4605772,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,DYL AT,DEEP YELLOW LTD,,,5147490.0,4117992.0,1.32858094,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,BOE AT,BOSS ENERGY LTD,,,2227191.0,3318514.59,1.07064687,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,ISO CT,ISOENERGY LTD,,,242700.0,3121867.22,1.00720286,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,URG UA,UR-ENERGY INC,,,2086364.0,2721073.8,0.87789554,AUD,Energy,United States,Equities,equity,web_csv
+2026-10-28,URNM-ASX,SASK CV,ATHA ENERGY CORP,,,1968783.0,1813169.24,0.58497979,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,EU CV,ENCORE ENERGY CORP,,,1060894.0,1213247.87,0.39142815,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,MGA CT,MEGA URANIUM LTD,,,1918925.0,1009858.31,0.32580892,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,GLO CT,GLOBAL ATOMIC CORP,,,2672182.0,987092.83,0.31846413,AUD,Materials,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,AGE AT,ALLIGATOR ENERGY LTD,,,24526248.0,858418.68,0.2769502,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,LOT AT,LOTUS RESOURCES LTD,,,3103420.0,651718.2,0.21026276,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,AEU AT,ATOMIC EAGLE LTD,,,1590465.0,620281.35,0.20012035,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,LAM CT,LARAMIDE RESOURCES LTD,,,1190444.0,614438.26,0.1982352,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,ARN CT,ASARIAN ENERGY LTD,,,1370815.0,575739.53,0.18574989,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,NUCL UR,EAGLE NUCLEAR ENERGY CORP,,,78787.0,548297.54,0.17689633,AUD,Energy,United States,Equities,equity,web_csv
+2026-10-28,URNM-ASX,PEN AT,PENINSULA ENERGY LTD,,,2625971.0,525194.2,0.16944254,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,CXU AT,CAULDRON ENERGY LTD,,,6896488.0,434478.74,0.14017516,AUD,Energy,Australia,Equities,equity,web_csv
+2026-10-28,URNM-ASX,V CV,VERDERA ENERGY CORP,,,139104.0,38010.4,0.01226323,AUD,Energy,Canada,Equities,equity,web_csv
+2026-10-28,URNM-ASX,GBP,GBP - BRITISH POUND,CASH,,17617.31,33296.12,0.01074227,AUD,,,Cash,cash,web_csv
+2026-10-28,URNM-ASX,USD,USD - UNITED STATES DOLLAR,CASH,,13394.79,19023.99,0.00613768,AUD,,,Cash,cash,web_csv
+2026-10-28,URNM-ASX,AUD,AUD - AUSTRALIA DOLLAR,CASH,,14354.45,14354.45,0.00463115,AUD,,,Cash,cash,web_csv
+2026-10-28,URNM-ASX,CAD,CAD - CANADA DOLLAR,CASH,,5955.09,6026.81,0.00194442,AUD,,,Cash,cash,web_csv
+2026-10-28,URNM-ASX,JPY,JPY - JAPANESE YEN,CASH,,338189.0,3036.73,0.00097974,AUD,,,Cash,cash,web_csv
+2026-10-28,URNM-ASX,HKD,HKD - HONG KONG DOLLAR,CASH,,1861.32,337.03,0.00010874,AUD,,,Cash,cash,web_csv
+2026-10-28,URNM-ASX,EUR,EUR - EURO,CASH,,-11.73,-18.57,-5.99e-06,AUD,,,Cash,cash,web_csv
+2026-10-28,URNM-ASX,"Total weights may not add up to 100% due to rounding or immateriality. Holdings, weights and values are subject to change.",,,,,,,AUD,,,,derivative,web_csv
+2026-10-28,URNM-ASX,"Betashares makes no representation or warranty of any kind, either express or implied, with respect to the holdings data,",,,,,,,AUD,,,,derivative,web_csv
+2026-10-28,URNM-ASX,"its timeliness, the information's use or any other matter.",,,,,,,AUD,,,,derivative,web_csv
