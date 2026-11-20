@@ -18,6 +18,7 @@ import yaml
 
 from .queries import fetch_daily_deltas
 from .cross_etf import aggregate_cross_etf, collapse_moves, converging_count
+from .flows import enrich
 
 logger = logging.getLogger(__name__)
 
@@ -70,15 +71,16 @@ def load_thresholds(path: str | Path | None = None) -> dict:
 
 
 class DeltaEngine:
-    def __init__(self, conn: duckdb.DuckDBPyConnection, config: dict | None = None):
+    def __init__(self, conn: duckdb.DuckDBPyConnection, config: dict | None = None, fx=None):
         self.conn = conn
         self.config = config if config is not None else load_thresholds()
+        self.fx = fx  # flows.UsdAud or None (then *_aud fields stay None)
 
     # -- computation -------------------------------------------------------
 
     def compute_deltas(self, source: str = "web_csv", target_date: date | None = None) -> DeltaResult:
         """Compute all deltas for ``source`` at the latest available date."""
-        rows = fetch_daily_deltas(self.conn, source, as_of=target_date)
+        rows = enrich(fetch_daily_deltas(self.conn, source, as_of=target_date), self.fx)
 
         additions, removals, changes = [], [], []
         for r in rows:

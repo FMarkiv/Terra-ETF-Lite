@@ -43,3 +43,13 @@ UNIVERSE: list[dict] = [
     {"etf_ticker": "URNM", "issuer": "sprott", "commodity_vertical": "uranium",           "fund_page_url": "https://sprottetfs.com/urnm-sprott-uranium-miners-etf/",      "external": True, "enabled": False},
 ]
 
+# Currency the issuer reports market_value in (the fund's base currency, NOT
+# the holding's trading currency in the `currency` column). Betashares files
+# state "Market Value (AUD)"; GDX-ASX ships the US fund's USD file (its market
+# value matches GDX to the dollar). Everything else is a USD-based fund.
+_AUD_BASED = {"MNRS", "URNM-ASX"}
+
+
+def fund_currency(etf_ticker: str) -> str:
+    return "AUD" if etf_ticker in _AUD_BASED else "USD"
+

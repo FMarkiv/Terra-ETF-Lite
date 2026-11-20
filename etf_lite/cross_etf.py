@@ -132,6 +132,8 @@ def aggregate_cross_etf(deltas: list[dict], equiv_groups: list[list[str]] | None
                 "n_etfs_added": 0,
                 "n_etfs_removed": 0,
                 "total_delta_market_value": 0.0,
+                "total_traded_value_aud": None,
+                "total_delta_market_value_aud": None,
                 "_etfs_seen": set(),
                 "etf_details": [],
             }
@@ -157,6 +159,9 @@ def aggregate_cross_etf(deltas: list[dict], equiv_groups: list[list[str]] | None
             g["n_etfs_weight_down"] += 1
 
         g["total_delta_market_value"] += d.get("delta_market_value") or 0.0
+        for k in ("traded_value_aud", "delta_market_value_aud"):
+            if d.get(k) is not None:
+                g["total_" + k] = (g["total_" + k] or 0.0) + d[k]
         if not g["constituent_name"] and d.get("constituent_name"):
             g["constituent_name"] = d["constituent_name"]
         if not g["constituent_ticker"] and d.get("constituent_ticker"):
@@ -168,13 +173,16 @@ def aggregate_cross_etf(deltas: list[dict], equiv_groups: list[list[str]] | None
                 "delta_weight_pct": d.get("delta_weight_pct"),
                 "delta_shares": d.get("delta_shares"),
                 "delta_market_value": d.get("delta_market_value"),
+                "traded_value_aud": d.get("traded_value_aud"),
             }
         )
 
     signals = list(groups.values())
     for g in signals:
         del g["_etfs_seen"]
-    signals.sort(key=lambda g: abs(g["total_delta_market_value"] or 0.0), reverse=True)
+    # Rank by money actually traded (AUD); fall back to Value Δ when no FX.
+    signals.sort(key=lambda g: (abs(g["total_traded_value_aud"] or 0.0),
+                                abs(g["total_delta_market_value"] or 0.0)), reverse=True)
     return signals
 
 

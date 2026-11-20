@@ -14,10 +14,11 @@ from __future__ import annotations
 import json
 import logging
 import shutil
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from .engine import DeltaEngine, scope_result
+from .flows import REPORT_CCY, UsdAud
 from .isin_resolver import IsinResolver
 from .normaliser import normalise_holdings
 from .parsers import get_parser
@@ -132,14 +133,19 @@ def build_site(etf_status: list[dict]) -> dict:
         active_maxes = [d for (t, d) in maxes_by_etf if t not in disabled and d is not None]
         aligned_date = min(active_maxes) if active_maxes else None
 
+        # USD->AUD rates for traded value. 60 days back so a fund pinned to an
+        # older snapshot (gap in its history) still finds a rate.
+        fx = (UsdAud.fetch(max(active_maxes) - timedelta(days=60), max(active_maxes))
+              if active_maxes else None)
+
         # Latest: each fund diffs its own two freshest snapshots (mixed windows).
         latest_result = scope_result(
-            DeltaEngine(conn).run(source="web_csv", apply_thresholds=True), drop=disabled)
+            DeltaEngine(conn, fx=fx).run(source="web_csv", apply_thresholds=True), drop=disabled)
         # Aligned: pin every fund to its latest snapshot <= aligned_date so the
         # cross-section is same-day apples-to-apples.
         aligned_result = (
             scope_result(
-                DeltaEngine(conn).run(source="web_csv", target_date=aligned_date,
+                DeltaEngine(conn, fx=fx).run(source="web_csv", target_date=aligned_date,
                                       apply_thresholds=True),
                 drop=disabled)
             if aligned_date else latest_result
@@ -161,6 +167,8 @@ def build_site(etf_status: list[dict]) -> dict:
     payload["generated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     payload["aligned_date"] = aligned_date.isoformat() if aligned_date else None
     payload["default_view"] = "aligned"
+    payload["report_ccy"] = REPORT_CCY
+    payload["fx_available"] = fx is not None
     payload["views"] = {"aligned": aligned_result.to_dict(), "latest": latest_result.to_dict()}
     payload["etfs"] = sorted(etf_status, key=lambda x: x["etf_ticker"])
     payload["coverage"] = {
