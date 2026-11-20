@@ -11,3 +11,5 @@ site/
 # the bot token from config/telegram.yaml here; CI uses Actions secrets instead.
 config/telegram.yaml
 config/*.local.yaml
+
+isin_sweep*.xlsx

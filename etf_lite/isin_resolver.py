@@ -87,12 +87,17 @@ class IsinResolver:
 
         ov = overrides or {}
         self._ov_ticker = {}
+        base_votes: dict[str, set] = defaultdict(set)
         for k, v in (ov.get("by_ticker") or {}).items():
             if ":" in k:  # "TICKER:COUNTRY" form
                 tk, ct = k.rsplit(":", 1)
                 self._ov_ticker[(normalize_ticker(tk), ct.strip().upper())] = v
-            self._ov_ticker[base_ticker(k)] = v
+                k = tk
             self._ov_ticker[normalize_ticker(k)] = v
+            base_votes[base_ticker(k)].add(v)
+        # Exchange-stripped roots only where unambiguous: "RIO" (ADR) and "RIO LN"
+        # are different ISINs, so a bare "RIO" key must not silently pick one.
+        self._ov_base = {b: next(iter(v)) for b, v in base_votes.items() if b and len(v) == 1}
         self._ov_name = {normalize_name(k): v for k, v in (ov.get("by_name") or {}).items()}
 
         self.stats: dict[str, int] = defaultdict(int)
@@ -124,8 +129,8 @@ class IsinResolver:
             return self._hit(self._ov_ticker[(base, ctry)], "override_ticker_country")
         if full and full in self._ov_ticker:
             return self._hit(self._ov_ticker[full], "override_ticker")
-        if base and base in self._ov_ticker:
-            return self._hit(self._ov_ticker[base], "override_ticker")
+        if base and base in self._ov_base:
+            return self._hit(self._ov_base[base], "override_ticker_base")
         if nm and nm in self._ov_name:
             return self._hit(self._ov_name[nm], "override_name")
 
@@ -152,7 +157,7 @@ class IsinResolver:
         return isin, method
 
     def __bool__(self):
-        return bool(self._by_full or self._by_name or self._ov_ticker or self._ov_name)
+        return bool(self._by_full or self._by_name or self._ov_ticker or self._ov_name or self._ov_base)
 
 
 def load_overrides(path: str | Path | None = None) -> dict:

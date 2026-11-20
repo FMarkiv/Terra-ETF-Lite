@@ -88,6 +88,38 @@ def append_snapshot(etf_ticker: str, rows: list[dict]) -> tuple[str, str | None,
     return ("ingested", as_of_iso, len(out))
 
 
+def _apply_isin_overrides(conn: duckdb.DuckDBPyConnection) -> None:
+    """Back-fill NULL ISINs in the loaded history from config/isin_overrides.yaml.
+
+    The delta key is COALESCE(isin, ticker); if overrides reached only new rows,
+    a name would flip key mid-history and show as a phantom removal + addition.
+    Applied in memory only — the committed snapshot CSVs stay as ingested.
+    """
+    from .isin_resolver import IsinResolver, load_overrides
+
+    ov = load_overrides()
+    if not (ov.get("by_ticker") or ov.get("by_name")):
+        return
+    resolver = IsinResolver([], ov)
+    rows = conn.execute(
+        "SELECT DISTINCT constituent_ticker, constituent_name, country "
+        "FROM etf_holdings_snapshot WHERE isin IS NULL"
+    ).fetchall()
+    fills = [(t, n, c, resolver.resolve(t, n, c)[0]) for t, n, c in rows]
+    fills = [f for f in fills if f[3]]
+    if not fills:
+        return
+    conn.register("isin_fill_df", pd.DataFrame(fills, columns=["t", "n", "c", "isin"]))
+    conn.execute(
+        "UPDATE etf_holdings_snapshot h SET isin = f.isin FROM isin_fill_df f "
+        "WHERE h.isin IS NULL "
+        "AND h.constituent_ticker IS NOT DISTINCT FROM f.t "
+        "AND h.constituent_name IS NOT DISTINCT FROM f.n "
+        "AND h.country IS NOT DISTINCT FROM f.c"
+    )
+    conn.unregister("isin_fill_df")
+
+
 def load_connection() -> duckdb.DuckDBPyConnection:
     """Build an in-memory DuckDB with ``etf_holdings_snapshot`` + ``etf_universe``."""
     conn = duckdb.connect(":memory:")
@@ -113,6 +145,7 @@ def load_connection() -> duckdb.DuckDBPyConnection:
         for col in ("asset_class", "instrument_type"):
             if col not in existing:
                 conn.execute(f"ALTER TABLE etf_holdings_snapshot ADD COLUMN {col} VARCHAR")
+        _apply_isin_overrides(conn)
     else:
         # First run, no history yet — create an empty, correctly-typed table.
         conn.execute(
