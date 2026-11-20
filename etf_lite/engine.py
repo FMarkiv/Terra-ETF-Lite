@@ -19,6 +19,7 @@ import yaml
 from .queries import fetch_daily_deltas
 from .cross_etf import aggregate_cross_etf, collapse_moves, converging_count
 from .flows import enrich
+from .isin_resolver import normalize_name, normalize_ticker
 
 logger = logging.getLogger(__name__)
 
@@ -80,7 +81,11 @@ class DeltaEngine:
 
     def compute_deltas(self, source: str = "web_csv", target_date: date | None = None) -> DeltaResult:
         """Compute all deltas for ``source`` at the latest available date."""
-        rows = enrich(fetch_daily_deltas(self.conn, source, as_of=target_date), self.fx)
+        # Merge re-keyed holdings first, so traded value / AUD conversion is computed
+        # on the merged change rows rather than the phantom removal+addition pair.
+        rows = enrich(
+            reconcile_key_flips(fetch_daily_deltas(self.conn, source, as_of=target_date)),
+            self.fx)
 
         additions, removals, changes = [], [], []
         for r in rows:
@@ -219,3 +224,57 @@ def scope_result(result: DeltaResult, *, keep=None, drop=None) -> DeltaResult:
             "etfs_processed": len({r.get("etf_ticker") for r in (A + R + C)}),
         },
     )
+
+
+def _flip_keys(r: dict) -> list[tuple]:
+    keys = []
+    t, n = normalize_ticker(r.get("constituent_ticker")), normalize_name(r.get("constituent_name"))
+    if t:
+        keys.append(("t", r["etf_ticker"], t))
+    if n:
+        keys.append(("n", r["etf_ticker"], n))
+    return keys
+
+
+def reconcile_key_flips(rows: list[dict]) -> list[dict]:
+    """Merge same-fund removal+addition pairs that are one holding re-keyed.
+
+    The delta key is COALESCE(isin, ticker), so a holding whose ISIN changes
+    (corporate action, e.g. a consolidation) or is present one day and missing
+    the next (feeds that drop it, crosswalk misses) surfaces as a phantom exit
+    plus entry. A removal and an addition in the same ETF with the same ticker or
+    the same normalised name are merged into a single 'change' row.
+    """
+    adds = [r for r in rows if r.get("delta_type") == "addition"]
+    rems = [r for r in rows if r.get("delta_type") == "removal"]
+    if not adds or not rems:
+        return rows
+    by_key: dict[tuple, dict] = {}
+    for r in rems:
+        for k in _flip_keys(r):
+            by_key.setdefault(k, r)
+    used, merged, drop = set(), [], set()
+    for a in adds:
+        rem = next((by_key[k] for k in _flip_keys(a) if k in by_key and id(by_key[k]) not in used), None)
+        if rem is None:
+            continue
+        used.add(id(rem))
+        drop.update((id(a), id(rem)))
+        m = dict(a)
+        for f in ("prev_as_of_date", "prev_weight_pct", "prev_shares", "prev_market_value"):
+            m[f] = rem.get(f)
+        m["isin"] = a.get("isin") or rem.get("isin")
+        m["delta_type"] = "change"
+
+        def _d(c, p):
+            return None if c is None or p is None else c - p
+        m["delta_weight_pct"] = _d(m.get("curr_weight_pct"), m.get("prev_weight_pct"))
+        m["delta_shares"] = _d(m.get("curr_shares"), m.get("prev_shares"))
+        m["delta_market_value"] = _d(m.get("curr_market_value"), m.get("prev_market_value"))
+        ps = m.get("prev_shares")
+        m["pct_change_shares"] = (m["delta_shares"] / ps * 100.0) if ps and m["delta_shares"] is not None else None
+        m["key_flip"] = True
+        merged.append(m)
+    if merged:
+        logger.info("Merged %d removal+addition pairs that were one holding re-keyed", len(merged))
+    return [r for r in rows if id(r) not in drop] + merged

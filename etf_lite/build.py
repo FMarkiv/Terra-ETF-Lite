@@ -19,6 +19,7 @@ from pathlib import Path
 
 from .engine import DeltaEngine, scope_result
 from .flows import REPORT_CCY, UsdAud
+from .isin_resolver import normalize_name, normalize_ticker
 from .isin_resolver import IsinResolver
 from .normaliser import normalise_holdings
 from .parsers import get_parser
@@ -158,8 +159,32 @@ def entry_exit_events(conn, disabled: set[str], days: int = EVENT_LOOKBACK_DAYS)
                 ev = {k: r.get(k) for k in _EVENT_FIELDS}
                 ev["curr_as_of_date"] = end
                 out.append(ev)
+    out = _drop_blips(out, next_date)
     out.sort(key=lambda e: (str(e["curr_as_of_date"]), e["etf_ticker"]), reverse=True)
     return out
+
+
+def _drop_blips(events: list[dict], next_date: dict[tuple, str]) -> list[dict]:
+    """Drop a removal that is re-added at the fund's very next snapshot.
+
+    Issuers occasionally mask holdings for a day (VanEck has published names as
+    anonymous "Other" lines), which reads as exit-then-re-entry. Only possible
+    in hindsight, so the latest-day view can still show the first half.
+    """
+    def key(e):
+        return (e["etf_ticker"], e.get("isin") or normalize_name(e.get("constituent_name"))
+                or normalize_ticker(e.get("constituent_ticker")))
+
+    by_add = {(key(e), str(e["curr_as_of_date"])): e for e in events if e["delta_type"] == "addition"}
+    drop = set()
+    for e in events:
+        if e["delta_type"] != "removal":
+            continue
+        nxt = next_date.get((e["etf_ticker"], str(e["curr_as_of_date"])))
+        a = by_add.get((key(e), nxt)) if nxt else None
+        if a is not None:
+            drop.update((id(e), id(a)))
+    return [e for e in events if id(e) not in drop]
 
 
 def build_site(etf_status: list[dict]) -> dict:
