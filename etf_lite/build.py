@@ -114,6 +114,54 @@ def ingest() -> list[dict]:
     return per_etf
 
 
+EVENT_LOOKBACK_DAYS = 90
+_EVENT_FIELDS = ("etf_ticker", "delta_type", "isin", "constituent_ticker", "constituent_name",
+                 "commodity_vertical", "prev_as_of_date", "curr_as_of_date",
+                 "prev_weight_pct", "curr_weight_pct", "prev_shares", "curr_shares")
+
+
+def entry_exit_events(conn, disabled: set[str], days: int = EVENT_LOOKBACK_DAYS) -> list[dict]:
+    """Every addition/removal over the last ``days`` days, newest first.
+
+    The views only carry the latest day's additions/removals, so a reader who
+    misses a day misses the event. Pinning the engine to each stored as-of date
+    replays each fund's consecutive snapshot pair once; additions/removals are
+    never threshold-filtered. Portfolio-blind by design: consumers (e.g. the
+    private Portfolio Reporting app) filter this to their own names.
+    """
+    dates = [r[0] for r in conn.execute(
+        "SELECT DISTINCT as_of_date FROM etf_holdings_snapshot WHERE source='web_csv' "
+        "AND as_of_date >= (SELECT MAX(as_of_date) FROM etf_holdings_snapshot) - ?::INTEGER "
+        "ORDER BY 1", [days]).fetchall()]
+    # Each fund's snapshot calendar: a removal row has no curr date, so derive the
+    # pair's end as the fund's next stored date after prev_as_of_date.
+    next_date: dict[tuple, str] = {}
+    for etf, ds in conn.execute(
+        "SELECT etf_ticker, LIST(DISTINCT as_of_date ORDER BY as_of_date) "
+        "FROM etf_holdings_snapshot WHERE source='web_csv' GROUP BY 1").fetchall():
+        for a, b in zip(ds, ds[1:]):
+            next_date[(etf, str(a))] = str(b)
+
+    seen, out = set(), []
+    engine = DeltaEngine(conn)
+    for d in dates:
+        res = engine.compute_deltas(source="web_csv", target_date=d)
+        for r in res.additions + res.removals:
+            etf = r["etf_ticker"]
+            end = (str(r["curr_as_of_date"]) if r.get("curr_as_of_date")
+                   else next_date.get((etf, str(r.get("prev_as_of_date")))))
+            if etf in disabled or end != str(d):
+                continue  # only the pair that ENDS on d — earlier pairs were seen already
+            key = (etf, r["delta_type"], r.get("isin") or r.get("constituent_ticker"), end)
+            if key not in seen:
+                seen.add(key)
+                ev = {k: r.get(k) for k in _EVENT_FIELDS}
+                ev["curr_as_of_date"] = end
+                out.append(ev)
+    out.sort(key=lambda e: (str(e["curr_as_of_date"]), e["etf_ticker"]), reverse=True)
+    return out
+
+
 def build_site(etf_status: list[dict]) -> dict:
     """Compute deltas from the full history and render the static dashboard."""
     # Paused funds (enabled=False, e.g. Sprott SETM/URNM): their committed CSVs
@@ -151,6 +199,8 @@ def build_site(etf_status: list[dict]) -> dict:
             if aligned_date else latest_result
         )
 
+        events = entry_exit_events(conn, disabled)
+
         freshness = {
             row[0]: row[1].isoformat() if row[1] else None
             for row in maxes_by_etf
@@ -170,6 +220,7 @@ def build_site(etf_status: list[dict]) -> dict:
     payload["report_ccy"] = REPORT_CCY
     payload["fx_available"] = fx is not None
     payload["views"] = {"aligned": aligned_result.to_dict(), "latest": latest_result.to_dict()}
+    payload["events"] = {"lookback_days": EVENT_LOOKBACK_DAYS, "items": events}
     payload["etfs"] = sorted(etf_status, key=lambda x: x["etf_ticker"])
     payload["coverage"] = {
         "tracked": sum(1 for s in UNIVERSE if s.get("enabled", True) is not False),
